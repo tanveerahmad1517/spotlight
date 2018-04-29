@@ -1,0 +1,91 @@
+#wrapper {
+  margin-left: 375px !important;
+  background-color: white;
+  height: 100vh;
+  width: 70%;
+  padding-left: 30px;
+  padding-right: 25px;
+  overflow: auto;
+}
+
+#header {
+  font-weight: 500;
+  font-size: 26px;
+}
+
+#create_desk {
+  background-color: #2ECC71;
+  color: white;
+  font-size: 20px;
+  border-radius: 3px;
+  border: 2px solid #2ECC71;
+}
+#create_desk:hover {
+  background-color: white;
+  color: #2ECC71;
+  transition: 0.5s;
+}
+#hidden_panel {
+  height: auto;
+  width: 95%;
+  background-color: #e8e9ea;
+  margin-top: 30px;
+  border-radius: 5px;
+  padding: 20px;
+  display: none;
+  transition: 0.5s;
+}
+#hidden_panel input {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#close_panel_button {
+  float: right;
+  background-color: transparent;
+  font-size: 17px;
+}
+
+#desk_create_select {
+  margin-bottom: 10px;
+  width: 100px;
+  font-size: 17px;
+  display: block;
+}
+
+#desk_create_name {
+  border: 2px solid white;
+  font-size: 20px;
+  width: 100%;
+  border-radius: 4px;
+}
+#desk_create_name:hover {
+  border-color: #2ECC71;
+  transition: 0.5s;
+}
+
+#desk_create_desc {
+  border: 2px solid white;
+  font-size: 20px;
+  width: 100%;
+  border-radius: 4px;
+}
+#desk_create_desc:hover {
+  border-color: #2ECC71;
+  transition: 0.5s;
+}
+
+#desk_create_button {
+  color: white;
+  background-color: #2ECC71;
+  border-radius: 3px;
+  border: 2px solid #2ECC71;
+  width: 9%;
+  padding-top: 5px;
+  padding-bottom: 3px;
+}
+#desk_create_button:hover {
+  color: #2ECC71;
+  background-color: white;
+  transition: 0.5s;
+}

@@ -66,3 +66,21 @@ def dashboard(request):
 
 # DESK
 # ---------------------
+# Desc: This is a page where you can create new desks(departments) for your
+#       newspaper or browse some to join them
+@login_required
+def desk(request):
+    current_user = get_object_or_404(User, pk=request.user.id)
+
+    # Settings Objects
+    try:
+        current_user_settings = ProfileSettings.objects.get(user=current_user)
+    except ObjectDoesNotExist:
+        current_user_settings = None
+
+    data = {
+        'current_user': current_user,
+        'has_home_navbar': True,
+        'current_user_settings': current_user_settings,
+    }
+    return render(request, 'home_app/desk.html', context=data)

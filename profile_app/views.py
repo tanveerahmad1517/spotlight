@@ -7,6 +7,28 @@ from django.contrib.auth import authenticate, login
 from .models import ProfileSettings
 
 
+# CONTRIBUTIONS
+# ------------------
+# Desc: This is the overall summary page of the each user containing contribu-
+#       -tions and and publised articles and so on.
+@login_required
+def contributions(request):
+    current_user = get_object_or_404(User, pk=request.user.id)
+
+    # Settings Objects
+    try:
+        current_user_settings = ProfileSettings.objects.get(user=current_user)
+    except ObjectDoesNotExist:
+        current_user_settings = None
+
+    data = {
+        'current_user': current_user,
+        'has_profile_navbar': True,
+        'current_user_settings': current_user_settings,
+    }
+    return render(request, 'profile_app/contributions.html', context=data)
+
+
 # SETTINGS
 # ------------------
 # Desc: This is the section in your profile that contains the settings form th-
