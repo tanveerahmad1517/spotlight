@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css_link %}
+<link rel="stylesheet" href="{% static 'home_app/css/dashboard.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+  <h3 id="header">Dashboard</h3>
+  <br />
+
+  <form id="announcament-form" method="post" action="{% url 'dashboard' %}">
+    {% csrf_token %}
+    <input type="text" placeholder="Announce ... " id="announcament-content" name="content"/>
+    <input value="Submit" type="submit" id="announcament_submit_form" name="announcament_submit_button"/>
+  </form>
+
+  <div id="announcaments">
+    {% for announcament in all_announcaments %}
+      <div id="announcament-cell">
+        <div id="announcament-cell-author-info">
+          {% if announcament.profile_settings %}
+            <a href=""><img src="{{ announcament.profile_settings.profile_photo.url }}" alt="pp" height="30px" width="30px"/></a>
+          {% else %}
+            <a href=""><img src="{% static 'news_app/assets/pp.jpg' %}" alt="pp" height="30px" width="30px"</a>
+          {% endif %}
+          <a href=""><h5>{{ announcament.user.username }}</h5></a>
+          <p>{{ announcament.publish_date }}</p>
+        </div>
+        <p>{{ announcament.content }}</p>
+      </div><!-- /announcament-cell -->
+    {% endfor %}
+  </div><!-- /anoncaments -->
+
+</div><!-- /wrapper -->
+{% endblock %}

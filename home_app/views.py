@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from .models import Announcament
+from profile_app.models import ProfileSettings
 
 
 # LOGIN GATE
@@ -28,7 +30,38 @@ def login_gate(request):
 
 # DASHBOARD
 # --------------------
-# Desc:
+# Desc: Home page showing the announcaments of every user
+@login_required
+def dashboard(request):
+    current_user = get_object_or_404(User, pk=request.user.id)
+
+    # Settings Objects
+    try:
+        current_user_settings = ProfileSettings.objects.get(user=current_user)
+    except ObjectDoesNotExist:
+        current_user_settings = None
+
+    # Announcament Mechanism
+    if request.POST.get('announcament_submit_button'):
+        content = request.POST.get('content')
+        new_announcament = Announcament(
+            user=current_user, profile_settings=current_user_settings,
+            content=content,
+        )
+        new_announcament.save()
+    # Announcament Objects
+    try:
+        all_announcaments = Announcament.objects.order_by('-publish_date')
+    except ObjectDoesNotExist:
+        all_announcaments = None
+
+    data = {
+        'current_user': current_user,
+        'has_home_navbar': True,
+        'current_user_settings': current_user_settings,
+        'all_announcaments': all_announcaments,
+    }
+    return render(request, 'home_app/dashboard.html', context=data)
 
 
 # DESK
