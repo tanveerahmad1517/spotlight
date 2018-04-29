@@ -34,7 +34,7 @@
   {% if has_home_navbar == True %}
     <!-- navbar left-part -->
     <div id="home-navbar-left-part">
-      <a href="{% url 'home_dashboard' %}"><img src="{% static 'news_app/assets/white-logo.png' %}" alt="logo"/></a>
+      <a href=""><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
       <a id="home-search-link" href=""><p class="text-center"><i class="fa fa-search"></i></p></a>
       <!-- MAX : 10 -->
       <div id="home-desk-links">
@@ -52,9 +52,9 @@
           <h5>@{{ current_user.username }}</h5>
         </div>
       </div>
-      <a href="{% url 'home_dashboard' %}"><i class="fa fa-bell"></i>Dashboard</a>
-      <a href="{% url 'home_desk' %}"><i class="fa fa-book"></i> Desk</a>
-      <a href="{% url 'profile_contributions' %}"><i class="fa fa-user-circle"></i> Profile</a>
+      <a href=""><i class="fa fa-bell"></i>Dashboard</a>
+      <a href=""><i class="fa fa-book"></i> Desk</a>
+      <a href=""><i class="fa fa-user-circle"></i> Profile</a>
       <a href=""><i class="fa fa-paper-plane"></i> Publish</a>
       <form method="POST" action="{% url 'logout' %}" id="logout_form">
         {% csrf_token %}
@@ -74,7 +74,7 @@
   {% if has_profile_navbar == True %}
     <!-- navbar left-part -->
     <div id="home-navbar-left-part">
-      <a href="{% url 'home_dashboard' %}"><img src="{% static 'news_app/assets/white-logo.png' %}" alt="logo"/></a>
+      <a href=""><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
       <a id="home-search-link" href=""><p class="text-center"><i class="fa fa-search"></i></p></a>
       <!-- MAX : 10 -->
       <div id="home-desk-links">
@@ -97,9 +97,9 @@
           <h5>@{{ current_user.username }}</h5>
         </div>
       </div>
-      <a href="{% url 'profile_contributions' %}"><i class="fa fa-briefcase"></i> Contributions</a>
+      <a href=""><i class="fa fa-briefcase"></i> Contributions</a>
       <a href=""><i class="fa fa-book"></i> Desk Management</a>
-      <a href="{% url 'profile_settings' %}"><i class="fa fa-cog"></i> Settings</a>
+      <a href="{% url 'settings' %}"><i class="fa fa-cog"></i> Settings</a>
       <form method="POST" action="{% url 'logout' %}" id="logout_form">
         {% csrf_token %}
         <input type="submit" value="Log Out" />

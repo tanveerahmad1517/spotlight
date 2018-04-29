@@ -26,5 +26,10 @@ def login_gate(request):
     return render(request, 'home_app/login_gate.html', context=data)
 
 
+# DASHBOARD
+# --------------------
+# Desc:
+
+
 # DESK
 # ---------------------

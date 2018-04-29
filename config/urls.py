@@ -13,7 +13,7 @@ urlpatterns = [
     # Profile App
     path('profile/', include('profile_app.urls')),
     # Core Auth System
-    path('auth/', include('django.contrib.auth.urls')),
+    path('', include('django.contrib.auth.urls')),
 ]
 
 if settings.DEBUG:

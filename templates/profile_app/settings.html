@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css_link %}
+<link rel="stylesheet" href="{% static 'profile_app/css/settings.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+  <h3 id="header">Settings</h3>
+  <br />
+  <form action="{% url 'settings' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Profile Photo</label>
+    <input style="margin-bottom:10px;" type="file" name="profile_photo" />
+    <label>Name & Surname</label>
+    <input class="settings_input" type="text" name="name" placeholder="Name & Surname" />
+    <label>Bio</label>
+    <input class="settings_input" type="text" name="bio" placeholder="A short bio" id="bio"/>
+    <label>Personal Link</label>
+    <input class="settings_input" type="text" name="personal_link" placeholder="Personal link" />
+    <input type="submit" value="Update" name="settings_submit_button" id="update_button" width="55px"/>
+  </form>
+
+</div>
+{% endblock %}
