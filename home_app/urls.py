@@ -7,5 +7,5 @@ urlpatterns = [
     # Dashboard
     path('home/dashboard/', views.dashboard, name='dashboard'),
     # Desk
-    path('home/desk/', views.desk, name='desk'),
+    path('home/desk/', views.desk_browse, name='desk_browse'),
 ]

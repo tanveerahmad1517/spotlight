@@ -89,3 +89,17 @@
   background-color: white;
   transition: 0.5s;
 }
+
+#desk-box-cell {
+  height: auto;
+  width: 95%;
+  background-color: #e8e9ea;
+  margin-top: 30px;
+  border-radius: 6px;
+  padding: 3px;
+  border: 2px solid blue;
+}
+
+#desk-box-cell img {
+  border-radius: 4px;
+}

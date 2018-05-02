@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .models import Announcament
 from profile_app.models import ProfileSettings
+from desk_app.models import Desk
 
 
 # LOGIN GATE
@@ -69,7 +70,7 @@ def dashboard(request):
 # Desc: This is a page where you can create new desks(departments) for your
 #       newspaper or browse some to join them
 @login_required
-def desk(request):
+def desk_browse(request):
     current_user = get_object_or_404(User, pk=request.user.id)
 
     # Settings Objects
@@ -77,6 +78,20 @@ def desk(request):
         current_user_settings = ProfileSettings.objects.get(user=current_user)
     except ObjectDoesNotExist:
         current_user_settings = None
+
+    # Desk Create Mechanism
+    if request.POST.get('desk_create_button'):
+        desk_create_image = request.FILES.get('desk_create_image')
+        desk_create_category = request.POST.get('desk_create_category')
+        desk_creat_name = request.POST.get('desk_create_category')
+        desk_create_desc = request.POST.get('desk_create_desc')
+        new_desk = Desk(
+            sub_editor=current_user, image=desk_create_image,
+            category=desk_create_category, name=desk_creat_name,
+            description=desk_create_desc,
+        )
+        new_desk.save()
+
 
     data = {
         'current_user': current_user,
