@@ -26,9 +26,30 @@ class Desk(models.Model):
         ('MAGAZINE', 'fa fa-file'),
         ('TABLOID', 'fa fa-phone'),
     )
+    CATEGORY_COLOR_CHOICES = (
+        ('WORLD', '#3498DB'),
+        ('METRO', '#2980B9'),
+        ('POLITICS', '#5D6D7E'),
+        ('BUSINESS', '#2E4053'),
+        ('TECH', '#F4D03F'),
+        ('SCIENCE', '#2ECC71'),
+        ('OPINION', '#9B59B6'),
+        ('HEALTH', '#E74C3C'),
+        ('SPORTS', '#58D68D'),
+        ('ARTS', '#F39C12'),
+        ('BOOKS', '#E67E22'),
+        ('STYLE', '#F5B7B1'),
+        ('TRAVEL', '#BB8FCE'),
+        ('MAGAZINE', '#8E44AD'),
+        ('TABLOID', '#A569BD'),
+    )
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
+    category_color = models.CharField(
+        max_length=50, choices=CATEGORY_COLOR_CHOICES
+    )
     name = models.CharField(max_length=30)
     description = models.TextField()
+    creation_date = models.DateField(default=timezone.now)
 
     def __str__(self):
         return self.name

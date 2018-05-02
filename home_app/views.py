@@ -83,12 +83,14 @@ def desk_browse(request):
     if request.POST.get('desk_create_button'):
         desk_create_image = request.FILES.get('desk_create_image')
         desk_create_category = request.POST.get('desk_create_category')
+        desk_create_category_color = request.POST.get('desk_create_category')
         desk_creat_name = request.POST.get('desk_create_category')
         desk_create_desc = request.POST.get('desk_create_desc')
         new_desk = Desk(
             sub_editor=current_user, image=desk_create_image,
             category=desk_create_category, name=desk_creat_name,
             description=desk_create_desc,
+            category_color=desk_create_category_color,
         )
         new_desk.save()
 

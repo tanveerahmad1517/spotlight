@@ -97,9 +97,20 @@
   margin-top: 30px;
   border-radius: 6px;
   padding: 3px;
-  border: 2px solid blue;
 }
 
 #desk-box-cell img {
   border-radius: 4px;
+  display: inline;
+}
+
+#center-content-desk-cell{
+  background-color: red;
+  width: 70%;
+  display: inline-block;
+  margin-left: 7px;
+  height: 90px;
+  margin-bottom: -40px !important;
+}
+#center-content-desk-cell h3 {
 }
