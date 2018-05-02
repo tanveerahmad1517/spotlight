@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block css_link %}
-<link rel="stylesheet" href="{% static 'home_app/css/desk_style.css' %}" />
+<link rel="stylesheet" href="{% static 'home_app/css/desk.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -62,15 +62,22 @@
 
   <!-- LISTINGS OF DESK -->
   <div id="desk-boxes">
-    <div id="desk-box-cell">
-      <img src="{% static 'assets/pp.jpg' %}" alt="desk_image" height="90" width="90" />
-      <div id="center-content-desk-cell">
-        <h4>Name</h4>
-        <p>
-          Content
-        </p>
+    {% for desk in all_desks %}
+    <!-- CELL -->
+    <div id="desk-box-cell" style="border: 2px solid {{ desk.get_category_color_display }};">
+      <img src="{{ desk.image.url }}" alt="desk_image" height="90" width="90" />
+      <div id="content">
+        <h4>{{ desk.name }}</h4>
+        <!-- MAX 236 CHARS -->
+        <p>{{ desk.description }}</p>
       </div>
-    </div>
+      <form action="{% url 'desk_browse' %}" method="POST">
+        {% csrf_token %}
+        <input name="hidden_value" value="{{ desk.id }}" type="hidden" />
+        <input type="submit" value="JOIN" style="background-color: {{ desk.get_category_color_display }}" name="join_desk_button"/>
+      </form>
+    </div><!-- /cell -->
+    {% endfor %}
   </div><!-- /desk-boxes -->
 
 </div>

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from profile_app.models import ProfileSettings
 
+
 # DESKs
 class Desk(models.Model):
     sub_editor = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -53,3 +54,12 @@ class Desk(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# DESK WORKERS
+class DeskWorkers(models.Model):
+    worker = models.ForeignKey(User, on_delete=models.CASCADE)
+    joined_desk = models.ForeignKey(Desk, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.worker.username

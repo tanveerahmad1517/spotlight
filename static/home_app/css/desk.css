@@ -91,26 +91,46 @@
 }
 
 #desk-box-cell {
+  margin-top: 25px;
   height: auto;
   width: 95%;
-  background-color: #e8e9ea;
-  margin-top: 30px;
-  border-radius: 6px;
+  background-color: white;
   padding: 3px;
+  border-radius: 3px;
 }
-
 #desk-box-cell img {
-  border-radius: 4px;
-  display: inline;
+  border-radius: 4px !important;
 }
-
-#center-content-desk-cell{
-  background-color: red;
-  width: 70%;
+#content{
   display: inline-block;
-  margin-left: 7px;
-  height: 90px;
-  margin-bottom: -40px !important;
+  padding: 2px !important;
+  background-color: transparent;
+  width: 550px;
+  position: absolute;
+  height: auto;
+  margin-top: 2px;
+  margin-left: 10px;
 }
-#center-content-desk-cell h3 {
+#content h4 {
+  margin: 0px !important;
+  margin-bottom: 4px !important;
+}
+#content p {
+  margin: 0px !important;
+}
+#desk-box-cell form {
+  display: inline;
+  position: relative;
+  margin-left: 600px;
+}
+#desk-box-cell form input {
+  padding: 10px;
+  border: 2px solid transparent;
+  color: white;
+  border-radius: 2px;
+}
+#desk-box-cell form input:hover {
+  color: black;
+  background-color: #e8e9ea !important;
+  transition: 0.5s;
 }

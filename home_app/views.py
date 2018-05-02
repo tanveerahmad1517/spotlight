@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .models import Announcament
 from profile_app.models import ProfileSettings
-from desk_app.models import Desk
+from desk_app.models import Desk, DeskWorkers
 
 
 # LOGIN GATE
@@ -84,7 +84,7 @@ def desk_browse(request):
         desk_create_image = request.FILES.get('desk_create_image')
         desk_create_category = request.POST.get('desk_create_category')
         desk_create_category_color = request.POST.get('desk_create_category')
-        desk_creat_name = request.POST.get('desk_create_category')
+        desk_creat_name = request.POST.get('desk_create_name')
         desk_create_desc = request.POST.get('desk_create_desc')
         new_desk = Desk(
             sub_editor=current_user, image=desk_create_image,
@@ -93,11 +93,31 @@ def desk_browse(request):
             category_color=desk_create_category_color,
         )
         new_desk.save()
+    # Desk objects
+    try:
+        all_desks = Desk.objects.order_by('-creation_date')
+    except ObjectDoesNotExist:
+        all_desks = None
 
+    # Joining a desk mechanism
+    if request.POST.get('join_desk_button'):
+        worker_that_joined = current_user
+        hidden_name = request.POST.get('hidden_value')
+        joined_desk = Desk.objects.get(pk=hidden_name)
+
+        try:
+            DeskWorkers.objects.get(worker=worker_that_joined, joined_desk=joined_desk)
+            # Do notrhing
+        except ObjectDoesNotExist:
+            new_worker = DeskWorkers(
+                worker=worker_that_joined, joined_desk=joined_desk
+            )
+            new_worker.save()
 
     data = {
         'current_user': current_user,
         'has_home_navbar': True,
         'current_user_settings': current_user_settings,
+        'all_desks': all_desks,
     }
     return render(request, 'home_app/desk.html', context=data)
