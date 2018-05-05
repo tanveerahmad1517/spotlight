@@ -30,7 +30,7 @@
 
 <body>
 
-  <!-- HOME  NAVBAR -->
+  <!-- HOME  NAVBAR  =================================================== -->
   {% if has_home_navbar == True %}
     <!-- navbar left-part -->
     <div id="home-navbar-left-part">
@@ -65,7 +65,7 @@
     </div><!-- navbar right part -->
   {% endif %}
 
-  <!-- DESK NAVBAR -->
+  <!-- DESK NAVBAR =================================================== -->
   {% if has_desk_navbar == True %}
     <!-- navbar left-part -->
     <div id="home-navbar-left-part">
@@ -83,15 +83,15 @@
     <!-- div navbar right part -->
     <div id="home-navbar-right-part">
       <div id="right-part-author-info">
-        {% if current_user_settings.profile_photo %}
-          <img src="{{ current_user_settings.profile_photo.url }}" alt="Profile photo" height="55px" width="55px" />
-        {% else %}
-          <img src="" alt="go_to_settings" height="55px" width="55px" />
-        {% endif %}
+        <img src="{{ desk.image.url }}" alt="Profile photo" height="55px" width="55px" />
 
         <div id="right-part-author-name">
-          <h4> {{ current_user_settings.name }}</h4>
-          <h5>@{{ current_user.username }}</h5>
+          <h4> {{ desk.name }}</h4>
+          {% if current_user == desk.sub_editor %}
+            <h5 style="color:#3498DB; border:1px solid #3498DB; padding:3px; border-radius:2px;">@{{ current_user.username }}</h5>
+          {% else %}
+            <h5 style="color:#E74C3C; border:1px solid #E74C3C; padding:3px; border-radius:2px;">@{{ current_user.username }}</h5>
+          {% endif %}
         </div>
       </div>
       <a href=""><i class="fa fa-list"></i> To-Do</a>
@@ -107,7 +107,7 @@
     </div><!-- navbar right part -->
   {% endif %}
 
-  <!-- PROFILE NAVBAR -->
+  <!-- PROFILE NAVBAR  =================================================== -->
   {% if has_profile_navbar == True %}
     <!-- navbar left-part -->
     <div id="home-navbar-left-part">

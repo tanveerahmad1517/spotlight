@@ -2,13 +2,39 @@
 {% load staticfiles %}
 
 {% block css_link %}
-  <link rel="stylesheet" href="{% static 'desk_app/css/to_do.css' %}" />
+  <link rel="stylesheet" href="{% static 'desk_app/css/to_do_style.css' %}" />
 {% endblock %}
 
 {% block content %}
   <div id="wrapper">
     <h3 id="header">To-Do</h3>
     <br />
-    {{ desk.name }}
+
+    <form id="to-do-form" method="post" action="{% url 'to_do' deskname=desk.name %}">
+      {% csrf_token %}
+      <input type="text" name="to_do_task_input" id="to_do_task_input" placeholder="Add a task ..." />
+      <input type="submit" name="to_do_form_submit_button" id="to_do_form_submit_button"/>
+    </form>
+
+    <div id="to-do-list">
+
+      <div id="to-do-cell">
+        <div id="left-part">
+          <p><i class="fa fa-circle"></i></p>
+        </div><!-- /left-part -->
+        <div id="content">
+          <h5>username <span>17 Feb</span></h5>
+          <p>r since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with des</p>
+        </div><!-- /content -->
+        <div id="right-part">
+          <form method="post">
+            {% csrf_token %}
+            <button><span><i class="fa fa-check"></i></span></button>
+          </form>
+        </div><!-- right part -->
+      </div><!-- /cell -->
+
+    </div><!-- /to do list -->
+
   </div><!-- /wrapper -->
 {% endblock %}

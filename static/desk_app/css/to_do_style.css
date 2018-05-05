@@ -1,0 +1,94 @@
+#wrapper {
+  margin-left: 375px !important;
+  background-color: white;
+  height: 100vh;
+  width: 70%;
+  padding-left: 30px;
+  padding-right: 25px;
+  overflow: auto;
+}
+
+#header {
+  font-weight: 500;
+  font-size: 26px;
+}
+
+#to_do_task_input {
+  display: inline;
+  width: 80%;
+  font-size: 20px;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: 2px solid transparent;
+  height: 50px;
+}
+#to_do_task_input:hover {
+  border-color:#2ECC71;
+  transition: 0.5s;
+}
+
+#to_do_form_submit_button {
+  width: 100px ;
+  height: 45px;
+  color: white;
+  background-color: #2ECC71;
+  border: 2px solid #2ECC71;
+  border-radius: 3px;
+}
+#to_do_form_submit_button:hover {
+  background-color: white;
+  transition: 0.5s;
+  color: #2ECC71;
+}
+
+#to-do-list {
+  height: 70vh;
+  width: 95%;
+  background-color: orange;
+  margin-top: 30px;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+#to-do-cell {
+  height: auto;
+  width: 100%;
+  background-color: pink;
+  margin-bottom: 15px;
+  padding: 5px;
+}
+
+#left-part {
+  height: 100%;
+  width: 5%;
+  padding-left: 15px;
+  padding-top: 5px;
+  background-color: yellow;
+  display: inline-block;
+  vertical-align: top !important;
+}
+#content {
+  display: inline-block;
+  height: 100%;
+  width: 80%;
+  background-color: red;
+  vertical-align: top !important;
+  padding: 5px 0px 0px 14px;
+}
+#content h5 {
+  display: inline;
+  margin-bottom: 5px;
+}
+#content h5 span {
+  margin-left: 10px;
+  font-size: 12px;
+  color: gray;
+}
+
+#right-part {
+  height: 100%;
+  width: 12%;
+  display: inline-block;
+  background-color: blue;
+  vertical-align: top !important;
+}
