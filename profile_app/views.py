@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .models import ProfileSettings
+from desk_app.models import Desk, DeskWorkers
 
 
 # CONTRIBUTIONS
@@ -21,10 +22,17 @@ def contributions(request):
     except ObjectDoesNotExist:
         current_user_settings = None
 
+    # Desk objects
+    try:
+        current_user_desks = DeskWorkers.objects.filter(worker=current_user)
+    except ObjectDoesNotExist:
+        current_user_desks = None
+
     data = {
         'current_user': current_user,
         'has_profile_navbar': True,
         'current_user_settings': current_user_settings,
+        'current_user_desks': current_user_desks,
     }
     return render(request, 'profile_app/contributions.html', context=data)
 
@@ -62,9 +70,16 @@ def settings(request):
     except ObjectDoesNotExist:
         current_user_settings = None
 
+    # Desk objects
+    try:
+        current_user_desks = DeskWorkers.objects.filter(worker=current_user)
+    except ObjectDoesNotExist:
+        current_user_desks = None
+
     data = {
         'current_user': current_user,
         'has_profile_navbar': True,
         'current_user_settings': current_user_settings,
+        'current_user_desks': current_user_desks,
     }
     return render(request, 'profile_app/settings.html', context=data)

@@ -56,11 +56,18 @@ def dashboard(request):
     except ObjectDoesNotExist:
         all_announcaments = None
 
+    # Desk Objects
+    try:
+        current_user_desks = DeskWorkers.objects.filter(worker=current_user)
+    except ObjectDoesNotExist:
+        current_user_desks = None
+
     data = {
         'current_user': current_user,
         'has_home_navbar': True,
         'current_user_settings': current_user_settings,
         'all_announcaments': all_announcaments,
+        'current_user_desks': current_user_desks,
     }
     return render(request, 'home_app/dashboard.html', context=data)
 
@@ -93,11 +100,6 @@ def desk_browse(request):
             category_color=desk_create_category_color,
         )
         new_desk.save()
-    # Desk objects
-    try:
-        all_desks = Desk.objects.order_by('-creation_date')
-    except ObjectDoesNotExist:
-        all_desks = None
 
     # Joining a desk mechanism
     if request.POST.get('join_desk_button'):
@@ -106,18 +108,29 @@ def desk_browse(request):
         joined_desk = Desk.objects.get(pk=hidden_name)
 
         try:
-            DeskWorkers.objects.get(worker=worker_that_joined, joined_desk=joined_desk)
-            # Do notrhing
+            DeskWorkers.objects.get(
+                worker=worker_that_joined, joined_desk=joined_desk
+            )
+            # if it exists Do nothing
         except ObjectDoesNotExist:
             new_worker = DeskWorkers(
                 worker=worker_that_joined, joined_desk=joined_desk
             )
             new_worker.save()
 
+    #  Desk objects
+    try:
+        all_desks = Desk.objects.order_by('-creation_date')
+        current_user_desks = DeskWorkers.objects.filter(worker=current_user)
+    except ObjectDoesNotExist:
+        all_desks = None
+        current_user_desks = None
+
     data = {
         'current_user': current_user,
         'has_home_navbar': True,
         'current_user_settings': current_user_settings,
         'all_desks': all_desks,
+        'current_user_desks': current_user_desks,
     }
     return render(request, 'home_app/desk.html', context=data)

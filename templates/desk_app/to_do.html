@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css_link %}
+  <link rel="stylesheet" href="{% static 'desk_app/css/to_do.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <div id="wrapper">
+    <h3 id="header">To-Do</h3>
+    <br />
+    {{ desk.name }}
+  </div><!-- /wrapper -->
+{% endblock %}
