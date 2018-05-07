@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block css_link %}
-  <link rel="stylesheet" href="{% static 'desk_app/css/to_do_style.css' %}" />
+  <link rel="stylesheet" href="{% static 'desk_app/css/to_do.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -18,18 +18,24 @@
 
     <div id="to-do-list">
 
-      <div id="to-do-cell">
+      <!-- CELL -->
+      <div id="to-do-cell" style="border:2px solid #E74C3C;">
         <div id="left-part">
-          <p><i class="fa fa-circle"></i></p>
+          <p style="color:#E74C3C;"><i class="fa fa-circle"></i></p>
         </div><!-- /left-part -->
         <div id="content">
-          <h5>username <span>17 Feb</span></h5>
-          <p>r since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with des</p>
+          <h5><span style="border: 1px solid #E74C3C; color: #E74C3C; padding:3px; border-radius:3px;">username </span> <span id="date">17 Feb</span></h5>
+          <p>r since the 1500s, when an unknown printer took a galleasd adas asdasd asdady of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with des</p>
         </div><!-- /content -->
         <div id="right-part">
           <form method="post">
             {% csrf_token %}
-            <button><span><i class="fa fa-check"></i></span></button>
+            <button type="submit" name="delete_button" id="delete_button"><i class="fa fa-close"></i></button>
+          </form>
+
+          <form method="post" class="text-center">
+            {% csrf_token %}
+            <button type="submit" name="check_button" id="check_button" style="border:2px solid #E74C3C"><span><i class="fa fa-check"></i></span></button>
           </form>
         </div><!-- right part -->
       </div><!-- /cell -->

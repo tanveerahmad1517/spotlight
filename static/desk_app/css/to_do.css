@@ -44,7 +44,7 @@
 #to-do-list {
   height: 70vh;
   width: 95%;
-  background-color: orange;
+  background-color: white;
   margin-top: 30px;
   overflow-y: scroll;
   padding: 10px;
@@ -53,17 +53,18 @@
 #to-do-cell {
   height: auto;
   width: 100%;
-  background-color: pink;
+  background-color: transparent;
   margin-bottom: 15px;
   padding: 5px;
+  border-radius: 4px;
 }
 
 #left-part {
   height: 100%;
   width: 5%;
-  padding-left: 15px;
-  padding-top: 5px;
-  background-color: yellow;
+  padding-left: 20px;
+  padding-top: 10px;
+  background-color: transparent;
   display: inline-block;
   vertical-align: top !important;
 }
@@ -71,24 +72,53 @@
   display: inline-block;
   height: 100%;
   width: 80%;
-  background-color: red;
+  background-color: transparent;
   vertical-align: top !important;
   padding: 5px 0px 0px 14px;
 }
 #content h5 {
   display: inline;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
-#content h5 span {
+#date {
   margin-left: 10px;
   font-size: 12px;
   color: gray;
 }
+#content p {
+  margin-top: 5px;
+}
 
 #right-part {
   height: 100%;
-  width: 12%;
+  width: 14%;
   display: inline-block;
-  background-color: blue;
+  background-color: transparent;
   vertical-align: top !important;
+}
+
+#delete_button {
+  float: right;
+  display: block;
+  background-color: transparent;
+  border: 0px;
+}
+#delete_button:hover {
+  color: #E74C3C;
+  transition: 0.5s;
+}
+
+#check_button {
+  font-size: 25px;
+  padding: 5px 10px;
+  margin-left: 20px;
+  margin-top:50px;
+  border-radius: 3px;
+  color: #2ECC71;
+  width: 50px;
+  height: 50px;
+}
+#check_button:hover {
+  background-color: #2ECC71;
+  transition: 0.5s;
 }
