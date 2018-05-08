@@ -63,3 +63,15 @@ class DeskWorkers(models.Model):
 
     def __str__(self):
         return self.worker.username
+
+
+# DESK Todo
+class DeskToDo(models.Model):
+    desk = models.ForeignKey(Desk, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    publish_date = models.DateField(default=timezone.now)
+    task_completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.desk.name
