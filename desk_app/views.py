@@ -66,3 +66,28 @@ def to_do(request, deskname):
 # NEW ARTICLE
 # --------------------------
 # Des: In this page each user can create a new article that they wish to write
+@login_required
+def new_article(request, deskname):
+    current_user = get_object_or_404(User, pk=request.user.id)
+    desk = get_object_or_404(Desk, name=deskname)
+
+    # Settings Objects
+    try:
+        current_user_settings = ProfileSettings.objects.get(user=current_user)
+    except ObjectDoesNotExist:
+        current_user_settings = None
+
+    # Desk objects
+    try:
+        current_user_desks = DeskWorkers.objects.filter(worker=current_user)
+    except ObjectDoesNotExist:
+        current_user_desks = None
+
+    data = {
+        'has_desk_navbar': True,
+        'current_user': current_user,
+        'desk': desk,
+        'current_user_settings': current_user_settings,
+        'current_user_desks': current_user_desks,
+    }
+    return render(request, 'desk_app/new_article.html', context=data)
