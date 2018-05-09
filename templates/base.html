@@ -88,9 +88,9 @@
         <div id="right-part-author-name">
           <h4> {{ desk.name }}</h4>
           {% if current_user == desk.sub_editor %}
-            <h5 style="color:#3498DB; border:1px solid #3498DB; padding:3px; border-radius:2px;">@{{ current_user.username }}</h5>
+            <h5 style="color:#2ECC71; border:#2ECC71 1px solid ; padding:3px; border-radius:2px;">@{{ current_user.username }}</h5>
           {% else %}
-            <h5 style="color:#E74C3C; border:1px solid #E74C3C; padding:3px; border-radius:2px;">@{{ current_user.username }}</h5>
+            <h5 style="color:#3498DB; border:1px solid #3498DB; padding:3px; border-radius:2px;">@{{ current_user.username }}</h5>
           {% endif %}
         </div>
       </div>
