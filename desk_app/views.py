@@ -61,3 +61,8 @@ def to_do(request, deskname):
         'desk_to_do_tasks': desk_to_do_tasks,
     }
     return render(request, 'desk_app/to_do.html', context=data)
+
+
+# NEW ARTICLE
+# --------------------------
+# Des: In this page each user can create a new article that they wish to write
