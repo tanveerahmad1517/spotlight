@@ -77,7 +77,7 @@ def new_article(request, deskname):
         content = request.POST.get("content")
         new_article = Article(
             author=current_user, title=title, content=content,
-            category=desk.category
+            category=desk.category, desk=desk
         )
         new_article.save()
 
@@ -101,3 +101,37 @@ def new_article(request, deskname):
         'current_user_desks': current_user_desks,
     }
     return render(request, 'desk_app/new_article.html', context=data)
+
+
+# IN PROGRESS
+# ------------------
+# Desc: Shows all of the articles written in that desk and lets the other users
+#       to edit, delete, push them to review
+@login_required
+def in_progress(request, deskname):
+    current_user = get_object_or_404(User, pk=request.user.id)
+    desk = get_object_or_404(Desk, name=deskname)
+
+    if request.POST.get("done_button"):
+        print('test')
+
+    # Settings Objects
+    try:
+        current_user_settings = ProfileSettings.objects.get(user=current_user)
+    except ObjectDoesNotExist:
+        current_user_settings = None
+
+    # Desk objects
+    try:
+        current_user_desks = DeskWorkers.objects.filter(worker=current_user)
+    except ObjectDoesNotExist:
+        current_user_desks = None
+
+    data = {
+        'has_desk_navbar': True,
+        'current_user': current_user,
+        'desk': desk,
+        'current_user_settings': current_user_settings,
+        'current_user_desks': current_user_desks,
+    }
+    return render(request, 'desk_app/in_progress.html', context=data)

@@ -80,10 +80,14 @@ class DeskToDo(models.Model):
 # DESK ARTICLE
 class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    desk = models.ForeignKey('Desk', on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=120)
     content = models.TextField()
     publish_date = models.DateField(default=timezone.now)
     category = models.CharField(max_length=50)
+    pushed_to_review = models.BooleanField(default=False)
+    pushed_to_done = models.BooleanField(default=False)
+    pushed_to_publish = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title[:50]
+        return self.title[:50] + "..."

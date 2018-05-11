@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css_link %}
+<link rel="stylesheet" href="{% static 'desk_app/css/in_progress.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+  <h3 id="header">In Progress</h3>
+  <br />
+
+  <div id="article-container">
+    <!-- Cell -->
+    <div id="article-cell">
+      <div id="author-info">
+        <img src="{% static 'assets/pp.jpg' %}" alt="pp_image" height="30px" width="30px" />
+        <h4>username</h4>
+        <p>17 Feb 2019</p>
+      </div><!-- /author info -->
+      <!-- buttons -->
+      <div id="perform-buttons">
+        <a href="">Edit</a>
+        <form method="post" action="{% url 'in_progress' deskname=desk.name %}" id="done-form">
+          {% csrf_token %}
+          <button type="submit" name="done_button"><i class="fa fa-check"></i></button>
+        </form>
+      </div><!-- /perform buttons -->
+      <h3>Title Title</h3>
+      <p>Lorem ipsum dolor sit amet, te has animal consectetuer. Te quas feugiat definiebas pri. Iriure veritus nominavi cu vel. Est ad noster facilisis ocurreret. Mea et meliore vivendo, per oratio equidem luptatum eu. An malis ludus vim, ut nam modo lorem elitr.
+
+Ex ludus graece principes nec, senserit incorrupte ne eam. Te tota mazim nam. Ei sed officiis iracundia, eum nullam option admodum ei, lobortis sadipscing et qui. Iisque regione an sed, id mel alia commune temporibus. Eum ei case eleifend, no mea vidisse tacimates, minimum consequuntur an eum.</p>
+      <a href="">to see more click edit ...</a>
+    </div><!-- /CELL -->
+  </div><!-- /article container -->
+</div>
+{% endblock %}
