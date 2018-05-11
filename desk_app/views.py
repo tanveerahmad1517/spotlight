@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from home_app.models import Announcament
 from profile_app.models import ProfileSettings
-from desk_app.models import Desk, DeskWorkers, DeskToDo
+from desk_app.models import Desk, DeskWorkers, DeskToDo, Article
 
 
 # TO-DO PAGE
@@ -70,6 +70,16 @@ def to_do(request, deskname):
 def new_article(request, deskname):
     current_user = get_object_or_404(User, pk=request.user.id)
     desk = get_object_or_404(Desk, name=deskname)
+
+    # Creating a new article mechanism
+    if request.POST.get("new_article_submit_button"):
+        title = request.POST.get("title")
+        content = request.POST.get("content")
+        new_article = Article(
+            author=current_user, title=title, content=content,
+            category=desk.category
+        )
+        new_article.save()
 
     # Settings Objects
     try:

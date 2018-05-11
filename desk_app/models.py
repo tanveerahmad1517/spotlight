@@ -4,7 +4,7 @@ from django.utils import timezone
 from profile_app.models import ProfileSettings
 
 
-# DESKs
+# DESK'S
 class Desk(models.Model):
     sub_editor = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(
@@ -65,7 +65,7 @@ class DeskWorkers(models.Model):
         return self.worker.username
 
 
-# DESK Todo
+# DESK TO-DO
 class DeskToDo(models.Model):
     desk = models.ForeignKey(Desk, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -75,3 +75,15 @@ class DeskToDo(models.Model):
 
     def __str__(self):
         return self.desk.name
+
+
+# DESK ARTICLE
+class Article(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=120)
+    content = models.TextField()
+    publish_date = models.DateField(default=timezone.now)
+    category = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.title[:50]
