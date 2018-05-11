@@ -12,26 +12,31 @@
 
   <div id="article-container">
     <!-- Cell -->
+    {% for article in all_articles %}
     <div id="article-cell">
       <div id="author-info">
         <img src="{% static 'assets/pp.jpg' %}" alt="pp_image" height="30px" width="30px" />
-        <h4>username</h4>
-        <p>17 Feb 2019</p>
+        {% if article.author == desk.sub_editor %}
+          <h4 style="color:#2ECC71; border:#2ECC71 1px solid ; padding:3px; border-radius:2px; font-size:16px">@{{ current_user.username }}</h4>
+        {% else %}
+          <h4 style="color:#3498DB; border:1px solid #3498DB; padding:3px; border-radius:2px; font-size:16px">@{{ current_user.username }}</h4>
+        {% endif %}
+        <p>{{ article.publish_date }}</p>
       </div><!-- /author info -->
       <!-- buttons -->
       <div id="perform-buttons">
         <a href="">Edit</a>
         <form method="post" action="{% url 'in_progress' deskname=desk.name %}" id="done-form">
           {% csrf_token %}
-          <button type="submit" name="done_button"><i class="fa fa-check"></i></button>
+          <input value="{{ article.id }}" type="hidden" name="hidden_id" />
+          <button type="submit" name="check_button" value="True"><span id="form-span"><i class="fa fa-check"></i></span></button>
         </form>
       </div><!-- /perform buttons -->
-      <h3>Title Title</h3>
-      <p>Lorem ipsum dolor sit amet, te has animal consectetuer. Te quas feugiat definiebas pri. Iriure veritus nominavi cu vel. Est ad noster facilisis ocurreret. Mea et meliore vivendo, per oratio equidem luptatum eu. An malis ludus vim, ut nam modo lorem elitr.
-
-Ex ludus graece principes nec, senserit incorrupte ne eam. Te tota mazim nam. Ei sed officiis iracundia, eum nullam option admodum ei, lobortis sadipscing et qui. Iisque regione an sed, id mel alia commune temporibus. Eum ei case eleifend, no mea vidisse tacimates, minimum consequuntur an eum.</p>
-      <a href="">to see more click edit ...</a>
+      <h3>{{ article.title }}</h3>
+      <p>{{ article.content|slice:"0:500" }}</p>
+      <a href="">see the full article ...</a>
     </div><!-- /CELL -->
+    {% endfor %}
   </div><!-- /article container -->
 </div>
 {% endblock %}

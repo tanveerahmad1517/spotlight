@@ -112,8 +112,17 @@ def in_progress(request, deskname):
     current_user = get_object_or_404(User, pk=request.user.id)
     desk = get_object_or_404(Desk, name=deskname)
 
-    if request.POST.get("done_button"):
-        print('test')
+    # Article pushing to done button checking mechanism
+    if request.POST.get("check_button"):
+        hidden_id = request.POST.get("hidden_id")
+        current_article = get_object_or_404(Article, pk=hidden_id)
+        current_article.pushed_to_done = True
+        current_article.save()
+    # Article object
+    try:
+        all_articles = Article.objects.filter(pushed_to_done=False).order_by('-publish_date')
+    except ObjectDoesNotExist:
+        all_articles = None
 
     # Settings Objects
     try:
@@ -133,5 +142,6 @@ def in_progress(request, deskname):
         'desk': desk,
         'current_user_settings': current_user_settings,
         'current_user_desks': current_user_desks,
+        'all_articles': all_articles,
     }
     return render(request, 'desk_app/in_progress.html', context=data)
