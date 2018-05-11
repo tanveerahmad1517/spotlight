@@ -145,3 +145,36 @@ def in_progress(request, deskname):
         'all_articles': all_articles,
     }
     return render(request, 'desk_app/in_progress.html', context=data)
+
+
+# ARTICLE EDIT PAGE
+# ------------------------
+# Desc: Shows the article edit page where you can make additions deletions
+#       and comment
+@login_required
+def article_edit(request, deskname, article_id):
+    current_user = get_object_or_404(User, pk=request.user.id)
+    desk = get_object_or_404(Desk, name=deskname)
+    article = get_object_or_404(Article, pk=article_id)
+
+    # Settings Objects
+    try:
+        current_user_settings = ProfileSettings.objects.get(user=current_user)
+    except ObjectDoesNotExist:
+        current_user_settings = None
+
+    # Desk objects
+    try:
+        current_user_desks = DeskWorkers.objects.filter(worker=current_user)
+    except ObjectDoesNotExist:
+        current_user_desks = None
+
+    data = {
+        'has_desk_navbar': True,
+        'current_user': current_user,
+        'desk': desk,
+        'current_user_settings': current_user_settings,
+        'current_user_desks': current_user_desks,
+        'article': article,
+    }
+    return render(request, 'desk_app/article_edit.html', context=data)
