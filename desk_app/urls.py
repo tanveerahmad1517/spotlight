@@ -10,7 +10,7 @@ urlpatterns = [
     path("<str:deskname>/article/progress/", views.in_progress, name='in_progress'),
     # Edit Article page
     path(
-        "<str:deskname>/article/<int:article_id>/", views.article_edit,\
-        name="edit"
+        "<str:deskname>/article/edit/<int:article_id>/", views.article_edit,\
+        name="article_edit"
     ),
 ]

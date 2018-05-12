@@ -34,7 +34,7 @@
       </div><!-- /perform buttons -->
       <h3>{{ article.title }}</h3>
       <p>{{ article.content|slice:"0:500" }}</p>
-      <a href="">see the full article ...</a>
+      <a href="{% url 'article_edit' deskname=desk.name article_id=article.id %}">see the full article ...</a>
     </div><!-- /CELL -->
     {% endfor %}
   </div><!-- /article container -->

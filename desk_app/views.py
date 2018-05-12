@@ -157,6 +157,16 @@ def article_edit(request, deskname, article_id):
     desk = get_object_or_404(Desk, name=deskname)
     article = get_object_or_404(Article, pk=article_id)
 
+    # Editing the article mechanism
+    if request.POST.get("save_changes_submit_button"):
+        article.title = request.POST.get("edit_title")
+        article.content = request.POST.get("edit_content")
+        article.save()
+    # Delete article mechanism
+    if request.POST.get("delete_article_btn"):
+        article.delete()
+        return HttpResponseRedirect("/")
+
     # Settings Objects
     try:
         current_user_settings = ProfileSettings.objects.get(user=current_user)
