@@ -97,8 +97,7 @@
       <a href="{% url 'to_do' deskname=desk.name %}"><i class="fa fa-list"></i> To-Do</a>
       <a href="{% url 'new_article' deskname=desk.name %}"><i class="fa fa-pencil"></i> New Article</a>
       <a href="{% url 'in_progress' deskname=desk.name %}"><i class="fa fa-tasks"></i> In Progress</a>
-      <a href=""><i class="fa fa-check"></i> Done</a>
-      <a href=""><i class="fa fa-question-circle"></i> Description</a>
+      <a href="{% url 'done' deskname=desk.name %}"><i class="fa fa-check"></i> Done</a>
       <form method="POST" action="{% url 'logout' %}" id="logout_form">
         {% csrf_token %}
         <input type="submit" value="Log Out" />

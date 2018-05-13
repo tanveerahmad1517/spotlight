@@ -94,6 +94,7 @@ class Article(models.Model):
     def __str__(self):
         return self.author.username + ' | ' + self.title[:50] + "..."
 
+
 # ARTICLE COMMENTS
 class ArticleComment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True)

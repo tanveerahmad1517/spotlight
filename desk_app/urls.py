@@ -13,4 +13,6 @@ urlpatterns = [
         "<str:deskname>/article/edit/<int:article_id>/", views.article_edit,\
         name="article_edit"
     ),
+    # Done page
+    path("<str:deskname>/done", views.done, name="done"),
 ]
