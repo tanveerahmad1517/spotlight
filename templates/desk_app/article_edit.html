@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block css_link %}
-<link rel="stylesheet" href="{% static 'desk_app/css/article_edit_style.css' %}" />
+<link rel="stylesheet" href="{% static 'desk_app/css/article_edit.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -30,7 +30,22 @@
   </form>
 
   <h3>Coments:</h3>
+  <div id="comment-wrapper">
+    <!-- comment cell -->
+    <div id="comment-cell">
+      <h4 style="color:#2ECC71; border:#2ECC71 1px solid ; padding:3px; border-radius:2px; font-size:16px; display:inline-block;">username</h4>
+      <p> : Contentad asd sad a sd asd asd as da  asd as das da sda sd asd asda sda sd asd ad sa  asd asd ad as da sd asd as da sd as da sd asd as  asd as das da d a da da sd asd a da sd s</p>
+    </div>
+    <div id="comment-line"></div>
+    <!-- /commen cell -->
 
+    <!-- comment form -->
+    <form id="comment_form" method="post">
+      {% csrf_token %}
+      <input type="text" name="comment_content" id="comment_content" placeholder="Comment ... " />
+      <input type="submit" name="comment_submit_btn" id="comment_submit_btn" />
+    </form>
+  </div>
 
 </div>
 {% endblock %}
