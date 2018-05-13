@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login
 from home_app.models import Announcament
 from profile_app.models import ProfileSettings
 from desk_app.models import Desk, DeskWorkers, DeskToDo, Article
+from desk_app.models import ArticleComment
 
 
 # TO-DO PAGE
@@ -166,6 +167,19 @@ def article_edit(request, deskname, article_id):
     if request.POST.get("delete_article_btn"):
         article.delete()
         return HttpResponseRedirect("/")
+    # Article commenting section
+    if request.POST.get("comment_submit_btn"):
+        content = request.POST.get("comment_content")
+        new_comment = ArticleComment(
+                        article=article, author=current_user, content=content,
+                      )
+        new_comment.save()
+    # Comments Objects
+    try:
+        article_comments = ArticleComment.objects.filter(article=article)
+    except ObjectDoesNotExist:
+        article_comments = None
+    print(article_comments)
 
     # Settings Objects
     try:
@@ -186,5 +200,6 @@ def article_edit(request, deskname, article_id):
         'current_user_settings': current_user_settings,
         'current_user_desks': current_user_desks,
         'article': article,
+        'article_comments': article_comments,
     }
     return render(request, 'desk_app/article_edit.html', context=data)

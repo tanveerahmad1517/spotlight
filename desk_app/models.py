@@ -93,3 +93,13 @@ class Article(models.Model):
 
     def __str__(self):
         return self.author.username + ' | ' + self.title[:50] + "..."
+
+# ARTICLE COMMENTS
+class ArticleComment(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    content = models.TextField()
+    publish_date = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return self.article.title
