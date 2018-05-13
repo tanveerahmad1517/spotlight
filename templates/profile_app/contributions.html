@@ -10,5 +10,16 @@
   <h3 id="header">Contributions</h3>
   <br />
 
+  <hr />
+  <img src="{{current_user_settings.profile_photo.url}}" alt="pp_image" height="60px" width="60px" />
+  <h3>{{ current_user_settings.name }}</h3>
+  <p>{{ current_user_settings.bio }}</p>
+  <a href="{{ current_user_settings.personal_link }}"><i class="fa fa-link"></i> {{ current_user_settings.personal_link }}</a>
+
+  <hr />
+  <h4>Articles:</h4>
+  <div id="articles-container">
+    
+  </div>
 </div>
 {% endblock %}

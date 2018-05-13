@@ -206,7 +206,10 @@ def article_edit(request, deskname, article_id):
     return render(request, 'desk_app/article_edit.html', context=data)
 
 
-# DESCRIPTION
+# DONE
+# -----------------------
+# Desc: Shows the articles that are checked in the `in progress` section so
+#       that the sub editor of the desk can push the articles to publish 
 @login_required
 def done(request, deskname):
     current_user = get_object_or_404(User, pk=request.user.id)

@@ -12,3 +12,7 @@
   font-weight: 500;
   font-size: 26px;
 }
+
+#wrapper img {
+  border-radius: 50%;
+}
