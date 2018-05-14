@@ -49,7 +49,35 @@ def contributions(request):
 # ------------------
 # Desc: This is where the user can manage its deks weather it want delete the
 #       desk that it has joined earlier
+@login_required
+def desk_management(request):
+    current_user = get_object_or_404(User, pk=request.user.id)
 
+    # Settings Objects
+    try:
+        current_user_settings = ProfileSettings.objects.get(user=current_user)
+    except ObjectDoesNotExist:
+        current_user_settings = None
+
+    # Desk objects
+    try:
+        current_user_desks = DeskWorkers.objects.filter(worker=current_user)
+    except ObjectDoesNotExist:
+        current_user_desks = None
+
+    # Desk quit mechanism
+    if request.POST.get("delete_desk_submit_btn"):
+        hidden_id = request.POST.get("hidden_desk_id")
+        desk = DeskWorkers.objects.get(pk=hidden_id)
+        desk.delete()
+
+    data = {
+        'current_user': current_user,
+        'has_profile_navbar': True,
+        'current_user_settings': current_user_settings,
+        'current_user_desks': current_user_desks,
+    }
+    return render(request, 'profile_app/desk_management.html', context=data)
 
 
 # SETTINGS
