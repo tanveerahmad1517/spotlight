@@ -226,7 +226,7 @@ def done(request, deskname):
 
     # Article Objects
     try:
-        all_articles = Article.objects.filter(pushed_to_done=True)
+        all_articles = Article.objects.filter(pushed_to_done=True, desk=desk)
     except ObjectDoesNotExist:
         all_articles = None
 

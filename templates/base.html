@@ -57,7 +57,7 @@
       <a href="{% url 'dashboard' %}"><i class="fa fa-bell"></i>Dashboard</a>
       <a href="{% url 'desk_browse' %}"><i class="fa fa-book"></i> Desk</a>
       <a href="{% url 'contributions' %}"><i class="fa fa-user-circle"></i> Profile</a>
-      <a href=""><i class="fa fa-paper-plane"></i> Publish</a>
+      <a href="{% url 'publish' %}"><i class="fa fa-paper-plane"></i> Publish</a>
       <form method="POST" action="{% url 'logout' %}" id="logout_form">
         {% csrf_token %}
         <input type="submit" value="Log Out" />

@@ -23,6 +23,7 @@
       <!-- cell -->
       <div id="article-cell">
         <h3>{{ article.title }}</h3>
+        <h4 style="color:{{article.desk.get_category_color_display}}; border: 1px solid {{article.desk.get_category_color_display}}; display:inline-block; padding:3px; border-radius: 3px;">{{ article.category|lower }}</h4>
         <h5 style="margin-bottom:20px;">{{ article.publish_date }}</h5>
         <p>{{ article.content }}</p>
       </div><!-- article /cell -->

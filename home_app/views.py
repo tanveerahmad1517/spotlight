@@ -186,6 +186,13 @@ def search(request):
 def publish(request):
     current_user = get_object_or_404(User, pk=request.user.id)
 
+    # All articles
+    try:
+        all_articles = Article.objects.filter(pushed_to_publish=True)\
+                        .order_by('-publish_date')
+    except ObjectDoesNotExist:
+        all_articles = None
+
     # Settings Objects
     try:
         current_user_settings = ProfileSettings.objects.get(user=current_user)
@@ -206,5 +213,6 @@ def publish(request):
         'current_user_settings': current_user_settings,
         'all_desks': all_desks,
         'current_user_desks': current_user_desks,
+        'all_articles': all_articles,
     }
     return render(request, 'home_app/publish.html', context=data)
