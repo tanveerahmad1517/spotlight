@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .models import ProfileSettings
-from desk_app.models import Desk, DeskWorkers
+from desk_app.models import Desk, DeskWorkers, Article
 
 
 # CONTRIBUTIONS
@@ -15,6 +15,13 @@ from desk_app.models import Desk, DeskWorkers
 @login_required
 def contributions(request):
     current_user = get_object_or_404(User, pk=request.user.id)
+
+    # Article objects
+    try:
+        current_user_articles = Article.objects.filter(author=current_user)\
+                                    .order_by('-publish_date')
+    except ObjectDoesNotExist:
+        current_user_articles = None
 
     # Settings Objects
     try:
@@ -33,8 +40,16 @@ def contributions(request):
         'has_profile_navbar': True,
         'current_user_settings': current_user_settings,
         'current_user_desks': current_user_desks,
+        'current_user_articles': current_user_articles,
     }
     return render(request, 'profile_app/contributions.html', context=data)
+
+
+# DESK MANAGEMENT
+# ------------------
+# Desc: This is where the user can manage its deks weather it want delete the
+#       desk that it has joined earlier
+
 
 
 # SETTINGS

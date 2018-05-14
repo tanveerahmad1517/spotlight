@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block css_link %}
-<link rel="stylesheet" href="{% static 'profile_app/css/contributions.css' %}" />
+<link rel="stylesheet" href="{% static 'profile_app/css/contributions_style.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -19,7 +19,15 @@
   <hr />
   <h4>Articles:</h4>
   <div id="articles-container">
-    
-  </div>
-</div>
+    {% for article in current_user_articles %}
+      <!-- cell -->
+      <div id="article-cell">
+        <h3>{{ article.title }}</h3>
+        <h5 style="margin-bottom:20px;">{{ article.publish_date }}</h5>
+        <p>{{ article.content }}</p>
+      </div><!-- article /cell -->
+    {% endfor %}
+  </div><!-- articles container -->
+
+</div><!-- wrapper -->
 {% endblock %}
