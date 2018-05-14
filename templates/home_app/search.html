@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css_link %}
+  <link rel="stylesheet" href="{% static 'home_app/css/search.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+  <h3 id="header">Search</h3>
+  <br />
+
+  <form id="search_form" action="{% url 'search' %}" method="get">
+    <input type="text" name="search_name" placeholder="Search by @username ..." id="search" />
+    <input type="submit" name="search_submit_btn" id="search_submit_btn" />
+  </form>
+
+</div>
+{% endblock %}

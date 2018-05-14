@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .models import Announcament
 from profile_app.models import ProfileSettings
-from desk_app.models import Desk, DeskWorkers
+from desk_app.models import Desk, DeskWorkers, Article
 
 
 # LOGIN GATE
@@ -134,3 +134,75 @@ def desk_browse(request):
         'current_user_desks': current_user_desks,
     }
     return render(request, 'home_app/desk.html', context=data)
+
+
+# SEARCH
+# ----------
+# Desc: A search page for the requested articles by the authors @username
+@login_required
+def search(request):
+    current_user = get_object_or_404(User, pk=request.user.id)
+
+    # Search Mechanism
+    if request.GET.get("search_submit_btn"):
+        username = request.GET.get('search_name')
+        user = get_object_or_404(User, username=username)
+        try:
+            filtered_user_articles = Article.objects.filter(author=user)
+        except ObjectDoesNotExist:
+            filtered_user_articles = None
+
+    # Settings Objects
+    try:
+        current_user_settings = ProfileSettings.objects.get(user=current_user)
+    except ObjectDoesNotExist:
+        current_user_settings = None
+
+    #  Desk objects
+    try:
+        all_desks = Desk.objects.order_by('-creation_date')
+        current_user_desks = DeskWorkers.objects.filter(worker=current_user)
+    except ObjectDoesNotExist:
+        all_desks = None
+        current_user_desks = None
+
+    data = {
+        'current_user': current_user,
+        'has_home_navbar': True,
+        'current_user_settings': current_user_settings,
+        'all_desks': all_desks,
+        'current_user_desks': current_user_desks,
+        'filtered_user_articles': filtered_user_articles,
+    }
+    return render(request, 'home_app/search.html', context=data)
+
+
+# PUBLISH
+# -----------
+# Desc: Page that has all of the finished articles that are ready to publish
+@login_required
+def publish(request):
+    current_user = get_object_or_404(User, pk=request.user.id)
+
+    # Settings Objects
+    try:
+        current_user_settings = ProfileSettings.objects.get(user=current_user)
+    except ObjectDoesNotExist:
+        current_user_settings = None
+
+    #  Desk objects
+    try:
+        all_desks = Desk.objects.order_by('-creation_date')
+        current_user_desks = DeskWorkers.objects.filter(worker=current_user)
+    except ObjectDoesNotExist:
+        all_desks = None
+        current_user_desks = None
+
+    data = {
+        'current_user': current_user,
+        'has_home_navbar': True,
+        'current_user_settings': current_user_settings,
+        'all_desks': all_desks,
+        'current_user_desks': current_user_desks,
+    }
+    return render(request, 'home_app/publish.html', context=data)

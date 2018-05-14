@@ -122,7 +122,8 @@ def in_progress(request, deskname):
         current_article.save()
     # Article object
     try:
-        all_articles = Article.objects.filter(pushed_to_done=False).order_by('-publish_date')
+        all_articles = Article.objects.filter(
+            pushed_to_done=False, desk=desk).order_by('-publish_date')
     except ObjectDoesNotExist:
         all_articles = None
 
@@ -209,7 +210,7 @@ def article_edit(request, deskname, article_id):
 # DONE
 # -----------------------
 # Desc: Shows the articles that are checked in the `in progress` section so
-#       that the sub editor of the desk can push the articles to publish 
+#       that the sub editor of the desk can push the articles to publish
 @login_required
 def done(request, deskname):
     current_user = get_object_or_404(User, pk=request.user.id)

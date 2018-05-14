@@ -35,7 +35,7 @@
     <!-- navbar left-part -->
     <div id="home-navbar-left-part">
       <a href="{% url 'dashboard' %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
-      <a id="home-search-link" href=""><p class="text-center"><i class="fa fa-search"></i></p></a>
+      <a id="home-search-link" href="{% url 'search' %}"><p class="text-center"><i class="fa fa-search"></i></p></a>
       <!-- MAX : 9 -->
       <div id="home-desk-links">
         {% for desk in current_user_desks %}
@@ -70,7 +70,7 @@
     <!-- navbar left-part -->
     <div id="home-navbar-left-part">
       <a href="{% url 'dashboard' %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
-      <a id="home-search-link" href=""><p class="text-center"><i class="fa fa-search"></i></p></a>
+      <a id="home-search-link" href="{% url 'search' %}"><p class="text-center"><i class="fa fa-search"></i></p></a>
       <!-- MAX : 10 -->
       <div id="home-desk-links">
         {% for desk in current_user_desks %}
@@ -110,7 +110,7 @@
     <!-- navbar left-part -->
     <div id="home-navbar-left-part">
       <a href="{% url 'dashboard' %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
-      <a id="home-search-link" href=""><p class="text-center"><i class="fa fa-search"></i></p></a>
+      <a id="home-search-link" href="{% url 'search' %}"><p class="text-center"><i class="fa fa-search"></i></p></a>
       <!-- MAX : 10 -->
       <div id="home-desk-links">
         {% for desk in current_user_desks %}
