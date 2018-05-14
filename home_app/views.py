@@ -143,12 +143,14 @@ def desk_browse(request):
 def search(request):
     current_user = get_object_or_404(User, pk=request.user.id)
 
+    filtered_user_articles = None
     # Search Mechanism
     if request.GET.get("search_submit_btn"):
         username = request.GET.get('search_name')
         user = get_object_or_404(User, username=username)
         try:
-            filtered_user_articles = Article.objects.filter(author=user)
+            filtered_user_articles = Article.objects.filter(author=user)\
+                                        .order_by('-publish_date')
         except ObjectDoesNotExist:
             filtered_user_articles = None
 
