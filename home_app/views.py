@@ -3,10 +3,21 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .models import Announcament
 from profile_app.models import ProfileSettings
 from desk_app.models import Desk, DeskWorkers, Article
+
+
+# HOME
+# --------------------
+# Desc: This is the index page of the app where the site gives information ab
+#       -out it is services.
+def home(request):
+    data = {
+
+    }
+    return render(request, 'home_app/home.html', context=data)
 
 
 # LOGIN GATE
@@ -23,9 +34,6 @@ def login_gate(request):
             return HttpResponseRedirect('/home/dashboard/')
         else:
             invalid_user_credits = True
-
-    if request.POST.get("log_out"):
-        pass
 
     data = {
         'invalid_user_credits': invalid_user_credits,

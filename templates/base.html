@@ -137,9 +137,9 @@
       <a href="{% url 'contributions' %}"><i class="fa fa-briefcase"></i> Contributions</a>
       <a href="{% url 'desk_management' %}"><i class="fa fa-book"></i> Desk Management</a>
       <a href="{% url 'settings' %}"><i class="fa fa-cog"></i> Settings</a>
-      <form method="POST" action="{% url 'login_gate' %}" id="logout_form">
+      <form method="POST" action="{% url 'logout' %}" id="logout_form">
         {% csrf_token %}
-        <input type="submit" value="Log Out" />
+        <input type="submit" value="Log Out" name="log_out_btn"/>
       </form>
     </div><!-- navbar right part -->
   {% endif %}

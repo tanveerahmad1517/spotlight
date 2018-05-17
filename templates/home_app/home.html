@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css_link %}
+  <link rel="stylesheet" href="{% static 'home_app/css/home.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <!-- FIRST SCENE -->
+  <div id="first-scene">
+    <div id="top-nav">
+      <a href="">Login</a>
+      <a href="">Signup</a>
+      <a href="">GitHub</a>
+      <a href="">Docs</a>
+      <a href="">Intro</a>
+    </div>
+
+  <!--  <p>Free Workflow Tool</p> -->
+  </div>
+
+  <!-- SECOND SCENE -->
+  <div id="second-scene">
+
+  </div>
+
+  <!-- THIRD SCENE -->
+  <div id="third-scene">
+
+  </div>
+{% endblock %}
