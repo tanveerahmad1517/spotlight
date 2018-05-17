@@ -1,10 +1,10 @@
 # Spotlight
 
-This is a custom tool specially built for journalist's but if your work revolves around creating and writing articles feel free to use it. It's meant to be used for easing your workload and eliminating the dozens of 'post-it's you stick while working on a project.
+This is a custom tool specially built for content creators with busy deadlines. It's meant to be used for easing your workload and eliminating the dozens of 'post-it's you stick while working on a project.
 
 ### App features are listed below:
 
-*Note: I will not maintain this project because I doubt there will ever be an interest. Yet, If there is, issue a ticket so that I will start maintaining this repo more seriously*
+*Once the site is up I will remove this line and add the link*
 
 ## Log In Gate
 <img src="screen_shots/login.gif" width="300px" align="right" >

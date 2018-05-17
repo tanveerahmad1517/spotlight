@@ -23,6 +23,10 @@ def login_gate(request):
             return HttpResponseRedirect('/home/dashboard/')
         else:
             invalid_user_credits = True
+
+    if request.POST.get("log_out"):
+        pass
+
     data = {
         'invalid_user_credits': invalid_user_credits,
     }

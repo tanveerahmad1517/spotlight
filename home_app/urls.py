@@ -2,8 +2,10 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
+    # Home Page
+    path('', views.home, name='home'),
     # Login Gate
-    path('', views.login_gate, name='login_gate'),
+    path('home/login/', views.login_gate, name='login_gate'),
     # Dashboard
     path('home/dashboard/', views.dashboard, name='dashboard'),
     # Desk
