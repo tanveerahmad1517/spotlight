@@ -14,9 +14,7 @@ from desk_app.models import Desk, DeskWorkers, Article
 # Desc: This is the index page of the app where the site gives information ab
 #       -out it is services.
 def home(request):
-    data = {
-
-    }
+    data = {}
     return render(request, 'home_app/home.html', context=data)
 
 
