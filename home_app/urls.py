@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
     # Home Page
     path('', views.home, name='home'),
+    # Signup
+    path('home/signup/', views.signup, name="signup"),
     # Login Gate
     path('home/login/', views.login_gate, name='login_gate'),
     # Dashboard

@@ -4,7 +4,17 @@ from django.utils import timezone
 from profile_app.models import ProfileSettings
 
 
-# Announcaments
+# USER ADITTIONS
+class UserAdittion(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+# OFFICE
+class Office(models.Model):
+    pass
+
+
+# ANNOUNCAMENTS
 class Announcament(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile_settings = models.ForeignKey(

@@ -10,7 +10,7 @@
   <div id="first-scene">
     <div id="top-nav">
       <a href="{% url 'login_gate' %}">Login</a>
-      <a href="">Signup</a>
+      <a href="{% url 'signup' %}">Signup</a>
       <a href="https://github.com/demirantay/spotlight">GitHub</a>
       <a href="">Documentation</a>
       <a href="">Introduction</a>
@@ -23,7 +23,7 @@
 
   <div id="first-scene-links">
     <a id="get-started" href="">GET STARTED</a>
-    <a href="">SIGN UP</a>
+    <a href="{% url 'signup' %}">SIGN UP</a>
     <a href="{% url 'login_gate' %}">LOG IN</a>
   </div>
 </div> <!-- /First scene -->
@@ -63,7 +63,7 @@
       <a href="">
         <div id="office-box">
           <img src="{% static 'assets/academy-logo.png' %}" alt="academy-logo" height="50px" width="50px" />
-          <h3>Academy</h3>
+          <h3>Academic</h3>
         </div>
       </a>
       <a href="">

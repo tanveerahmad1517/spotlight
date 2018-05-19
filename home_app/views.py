@@ -14,9 +14,18 @@ from desk_app.models import Desk, DeskWorkers, Article
 # Desc: This is the index page of the app where the site gives information ab
 #       -out it is services.
 def home(request):
-    data = {}
-    return render(request, 'home_app/home.html', context=data)
+    return render(request, 'home_app/home.html', context=None)
 
+
+# SIGN UP
+# --------------------
+# Desc: Signup page which consists of two forms since there will be two user
+#       types one for office admin who will have total control and an admin p-
+#       -age for it & a normal user who will join the office either with requ-
+#       -est or with the code provided by the office admin(boss)
+def signup(request):
+    data = {}
+    return render(request, 'home_app/signup.html', context=data)
 
 # LOGIN GATE
 # ---------------------

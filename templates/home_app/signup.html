@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css_link %}
+  <link rel="stylesheet" href="{% static 'home_app/css/signup_Style.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <div id="wrapper">
+    <h1 id="header">SIGN UP</h1>
+    <button id="account-create-button">CREATE AN ACCOUNT</button>
+    <button id="office-create-button">CREATE AN OFFICE</button>
+
+    <!-- Hidden office panel -->
+    <div id="office-hidden-panel">
+      <a href="">Please read the documentation very carefully</a>
+      <form id="office-form" method="post" action="{% url 'signup' %}">
+        {% csrf_token %}
+        <label>Create Office</label>
+        <input type="text" placeholder="Office Name" name="office_name" />
+        <select name="office_type">
+          <option value="journalism">Journalism</option>
+        </select>
+        <br />
+        <label>Create Admin</label>
+        <input type="text" placeholder="Username" name="office_admin_username"/>
+        <input type="email" placeholder="Email" name="office_admin_email" />
+        <input type="text" placeholder="First Name" name="office_admin_first_name" />
+        <input type="text" placeholder="Last Name" name="office_admin_last_name" />
+        <input type="password" placeholder="Password" name="office_admin_password"/>
+        <input type="submit" value="Sign Up" name="office_admin_signup_btn" id="signup_btn"/>
+      </form>
+    </div>
+    <!-- /hidden office panel -->
+
+
+
+    <!-- hiden account panel -->
+    <div id="account-hidden-panel">
+      <a href="">Please read the documentation very carefully</a>
+      <form id="account-form" method="post" action="{% url 'signup' %}">
+        {% csrf_token %}
+        <label>Create Account</label>
+        <input type="text" placeholder="Username" name="normal_account_username"/>
+        <input type="email" placeholder="Email" name="normal_account_email" />
+        <input type="text" placeholder="First Name" name="normal_account_first_name" />
+        <input type="text" placeholder="Last Name" name="normal_account_last_name" />
+        <input type="password" placeholder="Password" name="normal_account_password"/>
+        <label>Join Office</label>
+        <input type="password" placeholder="Office Key" name="office_key" />
+        <input type="submit" value="Sign Up" name="normal_account_signup_btn" id="signup_btn"/>
+      </form>
+    </div>
+    <!-- /hidden account panel -->
+
+    <script src="{% static 'home_app/js/signup_dom.js' %}"></script>
+  </div><!-- /wrapper -->
+{% endblock %}
