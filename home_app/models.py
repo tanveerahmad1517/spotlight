@@ -13,32 +13,28 @@ def generate_secret_key():
     )
 
 
-# USER ADITTIONS
-class UserAdittion(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    joined_office = models.OneToOneField("Office", on_delete=models.CASCADE)
-
-    def __str__(self):
-        return user.username
-
-
 # OFFICE
 class Office(models.Model):
     admin = models.OneToOneField(User, on_delete=models.CASCADE)
-    admin_settings = models.ForeignKey(
-            ProfileSettings, on_delete=models.CASCADE
-    )
-    admin_adittions = models.ForeignKey(UserAdittion, on_delete=models.CASCADE)
     name = models.CharField(max_length=250)
     TYPE_CHOICES = (
-        ("Journalism", "Journalism"),
+        ("JOURNALISM", "Journalism"),
     )
     type = models.CharField(max_length=250, choices=TYPE_CHOICES)
     secret_key = models.CharField(max_length=20, default=generate_secret_key)
     creation_date = models.DateField(default=timezone.now)
 
     def __str__(self):
-        return self.office_name
+        return self.name
+
+
+# USER ADITTIONS
+class OfficeWorkers(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    joined_office = models.OneToOneField("Office", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
 
 
 # ANNOUNCAMENTS

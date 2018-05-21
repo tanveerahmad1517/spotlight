@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Announcament
+from home_app.models import Announcament, Office, OfficeWorkers
 from profile_app.models import ProfileSettings
 from desk_app.models import Desk, DeskWorkers, Article
 
@@ -24,8 +24,73 @@ def home(request):
 #       -age for it & a normal user who will join the office either with requ-
 #       -est or with the code provided by the office admin(boss)
 def signup(request):
-    data = {}
+    invalid_office_form_credits = False
+    invalid_account_form_credits = False
+    # Craeting a normal acount form validation
+    if request.POST.get("normal_account_signup_btn"):
+        username = request.POST.get("normal_account_username")
+        email = request.POST.get("normal_account_email")
+        first_name = request.POST.get("normal_account_first_name")
+        last_name = request.POST.get("normal_account_last_name")
+        password = request.POST.get("normal_account_password")
+        office_key = request.POST.get("office_key")
+
+        if User.objects.filter(username=username, email=email).exists():
+            # Do nothing since there is a user already created
+            invalid_account_form_credits = True
+        else:
+            if Office.objects.filter(secret_key=office_key).exists():
+                new_user = User(
+                    username=username, email=email, first_name=first_name,
+                    last_name=last_name, password=password
+                )
+                new_user.save()
+                # Now get the user from the db and assign it to the office
+                new_user = User.objects.get(username=username, email=email)
+                office = Office.objects.get(secret_key=office_key)
+                new_office_worker = OfficeWorkers(
+                    user=new_user, joined_office=office
+                    )
+                new_office_worker.save()
+                return HttpResponseRedirect('/home/login/')
+            else:
+                # Do nothing
+                invalid_account_form_credits = True
+
+    # Creating a office with admin account form validation
+    if request.POST.get("office_admin_signup_btn"):
+        office_name = request.POST.get("office_name")
+        office_type = request.POST.get("office_type")
+        username = request.POST.get("office_admin_username")
+        email = request.POST.get("office_admin_email")
+        first_name = request.POST.get("office_admin_first_name")
+        last_name = request.POST.get("office_admin_last_name")
+        password = request.POST.get("office_admin_password")
+
+        if Office.objects.filter(name=office_name).exists() or\
+                User.objects.filter(username=username).exists():
+            # Do nothing since there is already an office
+            invalid_office_form_credits = True
+        else:
+            # Create a new user
+            new_user = User(
+                username=username, email=email, first_name=first_name,
+                last_name=last_name, password=password
+            )
+            new_user.save()
+            # Create a new office with the new user as admin
+            new_user = User.objects.get(username=username)
+            new_office = Office(
+                admin=new_user, name=office_name, type=office_type
+            )
+            new_office.save()
+
+    data = {
+        'invalid_office_form_credits': invalid_office_form_credits,
+        'invalid_account_form_credits': invalid_account_form_credits,
+    }
     return render(request, 'home_app/signup.html', context=data)
+
 
 # LOGIN GATE
 # ---------------------
@@ -169,7 +234,7 @@ def search(request):
         user = get_object_or_404(User, username=username)
         try:
             filtered_user_articles = Article.objects.filter(author=user)\
-                                        .order_by('-publish_date')
+                .order_by('-publish_date')
         except ObjectDoesNotExist:
             filtered_user_articles = None
 
@@ -208,7 +273,7 @@ def publish(request):
     # All articles
     try:
         all_articles = Article.objects.filter(pushed_to_publish=True)\
-                        .order_by('-publish_date')
+            .order_by('-publish_date')
     except ObjectDoesNotExist:
         all_articles = None
 
