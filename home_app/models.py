@@ -6,7 +6,7 @@ import random
 import string
 
 
-# FUNCTIONS FOR MODELS
+# MODEL FUNCTIONS
 def generate_secret_key():
     return ''.join(
        random.choice(string.ascii_uppercase + string.digits) for _ in range(20)
