@@ -8,7 +8,7 @@ class TestOffice(TestCase):
 
     def setUp(self):
         user = User.objects.create(username='test_user', password='123')
-        office = Office.objects.create(admin=user, name='test_office')
+        Office.objects.create(admin=user, name='test_office')
 
     def test_to_string(self):
         office = Office.objects.get(id=1)
@@ -22,8 +22,7 @@ class TestOfficeWorkers(TestCase):
     def setUp(self):
         user = User.objects.create(username='test_user', password='123')
         office = Office.objects.create(admin=user, name='test_office')
-        office_worker = OfficeWorkers.objects.create(user=user,
-                                                     joined_office=office)
+        OfficeWorkers.objects.create(user=user, joined_office=office)
 
     def test_to_string(self):
         office_worker = OfficeWorkers.objects.get(id=1)
