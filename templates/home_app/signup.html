@@ -32,14 +32,14 @@
       <form id="account-form" method="post" action="{% url 'signup' %}">
         {% csrf_token %}
         <label>Create Account</label>
-        <input type="text" placeholder="Username" name="normal_account_username"/>
-        <input type="email" placeholder="Email" name="normal_account_email" />
-        <input type="text" placeholder="First Name" name="normal_account_first_name" />
-        <input type="text" placeholder="Last Name" name="normal_account_last_name" />
-        <input type="password" placeholder="Password" name="normal_account_password"/>
+        {{ normal_account_form.username }}
+        {{ normal_account_form.email }}
+        {{ normal_account_form.first_name }}
+        {{ normal_account_form.last_name }}
+        {{ normal_account_form.password }}
         <label>Join Office</label>
-        <input type="password" placeholder="Office Key" name="office_key" />
-        <input type="submit" value="Sign Up" name="normal_account_signup_btn" id="signup_btn"/>
+        {{ normal_account_form.office_key }}
+        <input type="submit" name="normal_account_signup_btn" id="signup_btn" />
       </form>
     </div>
     <!-- /hidden account panel -->

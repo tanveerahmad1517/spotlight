@@ -1,12 +1,14 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
-from home_app.models import Announcament, Office, OfficeWorkers
+from django.contrib.auth import authenticate, login
+from django.core.exceptions import ObjectDoesNotExist
+from home_app.models import Office, OfficeWorkers, Announcament
 from profile_app.models import ProfileSettings
 from desk_app.models import Desk, DeskWorkers, Article
+from home_app.forms import NormalAccountForm, OfficeAccountForm
+from home_app.forms import AnnouncamentForm
 
 
 # HOME
@@ -26,6 +28,45 @@ def home(request):
 def signup(request):
     invalid_office_form_credits = False
     invalid_account_form_credits = False
+
+    # Normal Account Sign Up Mechanism
+    if request.POST.get("normal_account_signup_btn"):
+        normal_account_form = NormalAccountForm(request.POST)
+        if normal_account_form.is_valid():
+            username = normal_account_form['username'].value()
+            email = normal_account_form['email'].value()
+            first_name = normal_account_form['first_name'].value()
+            last_name = normal_account_form['last_name'].value()
+            password = normal_account_form['password'].value()
+            office_key = normal_account_form['office_key'].value()
+
+            if User.objects.filter(username=username, email=email).exists():
+                # Do nothing since there is a user already created
+                invalid_account_form_credits = True
+            else:
+                if Office.objects.filter(secret_key=office_key).exists():
+                    new_user = User(
+                        username=username, email=email, first_name=first_name,
+                        last_name=last_name, password=password
+                    )
+                    new_user.save()
+                    # Now get the user from the db and assign it to the office
+                    new_user = User.objects.get(username=username, email=email)
+                    office = Office.objects.get(secret_key=office_key)
+                    new_office_worker = OfficeWorkers(
+                            user=new_user, joined_office=office
+                        )
+                    new_office_worker.save()
+                    return HttpResponseRedirect('/home/login/')
+                else:
+                    # Do nothing
+                    invalid_account_form_credits = True
+    else:
+        normal_account_form = NormalAccountForm()
+
+    # Office & Admin Account Sign Up Mechanism
+
+    """
     # Craeting a normal acount form validation
     if request.POST.get("normal_account_signup_btn"):
         username = request.POST.get("normal_account_username")
@@ -84,10 +125,12 @@ def signup(request):
                 admin=new_user, name=office_name, type=office_type
             )
             new_office.save()
+    """
 
     data = {
         'invalid_office_form_credits': invalid_office_form_credits,
         'invalid_account_form_credits': invalid_account_form_credits,
+        'normal_account_form': noraml_account_form,
     }
     return render(request, 'home_app/signup.html', context=data)
 

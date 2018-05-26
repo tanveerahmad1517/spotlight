@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from home_app.models import Office
+from home_app.models import Office, OfficeWorkers, Announcament
 from django.urls import reverse
 
 
@@ -31,4 +31,17 @@ class TestSignupView(TestCase):
         pass
 
     def test_view_exists_at_desired_url(self):
-        pass
+        response = self.client.get("/home/signup/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_is_accesible_by_name(self):
+        response = self.client.get(reverse('signup'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_uses_correct_template(self):
+        response = self.client.get(reverse('signup'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'home_app/signup.html')
+
+    def test_check_view_context(self):
+        response = self.
