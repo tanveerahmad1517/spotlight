@@ -1,7 +1,11 @@
 from django import forms
+from django.forms import ModelForm
+from home_app.models import Office, Announcament
+from django.contrib.auth.models import User
 
 
-# Normal Acount Form
+# NORMAL ACCOUNT FORM
+# ---------------------------
 class NormalAccountForm(forms.Form):
     username = forms.CharField(
         max_length=None, required=True, label='',
@@ -31,15 +35,21 @@ class NormalAccountForm(forms.Form):
     )
 
 
-# Office & Admin Account Form
+# OFFICE & ADMIN ACCOUNT FORM
+# ---------------------------
+
+TYPE_CHOICES = (
+    ("JOURNALISM", "Journalism"),
+)
+
+
 class OfficeAccountForm(forms.Form):
     office_name = forms.CharField(
-        max_length=250, required=True, label='',
+        max_length=None, required=True, label='',
         widget=forms.TextInput(attrs={'placeholder': 'Office Name'})
     )
     office_type = forms.ChoiceField(
-        required=True, label='',
-        widget=forms.Select(), choices=([('JOURNALISM', 'Journalism')])
+        required=True, label='', choices=TYPE_CHOICES,
     )
     username = forms.CharField(
         max_length=None, required=True, label='',
@@ -64,7 +74,7 @@ class OfficeAccountForm(forms.Form):
     )
 
 
-# Announcaments Form
+# ANNOUNCAMENT FORM
 class AnnouncamentForm(forms.Form):
     content = forms.CharField(
         max_length=1000, label='', required=True,

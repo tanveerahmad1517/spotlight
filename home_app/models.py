@@ -30,8 +30,8 @@ class Office(models.Model):
 
 # USER ADITTIONS
 class OfficeWorkers(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    joined_office = models.OneToOneField("Office", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    joined_office = models.ForeignKey("Office", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username

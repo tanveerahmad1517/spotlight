@@ -50,18 +50,17 @@
       <form id="office-form" method="post" action="{% url 'signup' %}">
         {% csrf_token %}
         <label>Create Office</label>
-        <input type="text" placeholder="Office Name" name="office_name" />
-        <select name="office_type">
-          <option value="JOURNALISM">Journalism</option>
-        </select>
+        {{ office_account_form.office_name }}
+        {{ office_account_form.office_type }}
         <br />
-        <label>Create Admin</label>
-        <input type="text" placeholder="Username" name="office_admin_username"/>
-        <input type="email" placeholder="Email" name="office_admin_email" />
-        <input type="text" placeholder="First Name" name="office_admin_first_name" />
-        <input type="text" placeholder="Last Name" name="office_admin_last_name" />
-        <input type="password" placeholder="Password" name="office_admin_password"/>
-        <input type="submit" value="Sign Up" name="office_admin_signup_btn" id="signup_btn"/>
+        <label>Create Office Admin</label>
+        {{ office_account_form.username }}
+        {{ office_account_form.email }}
+        {{ office_account_form.first_name }}
+        {{ office_account_form.last_name }}
+        {{ office_account_form.password }}
+        <input type="submit" value="Sign Up" name="office_admin_signup" id="signup_btn" />
+
       </form>
     </div>
     <!-- /hidden office panel -->

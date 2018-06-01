@@ -19,3 +19,19 @@ class TestNormalAccountForm(TestCase):
         }
         form = NormalAccountForm(data=form_data)
         self.assertTrue(form.is_valid())
+
+
+class TestOfficeAccountForm(TestCase):
+
+    def test_form(self):
+        form_data = {
+            'office_name': 'test_name',
+            'office_type': 'JOURNALISM',
+            'username': 'test_username',
+            'email': 'test@test.com',
+            'first_name': 'test_firstname',
+            'last_name': 'test_lastname',
+            'password': '123',
+        }
+        form = OfficeAccountForm(data=form_data)
+        self.assertTrue(form.is_valid())

@@ -29,8 +29,8 @@ def signup(request):
     invalid_office_form_credits = False
     invalid_account_form_credits = False
 
-    # Normal Account Sign Up Mechanism
-    if request.POST.get("normal_account_signup_btn"):
+    # Form Submission
+    if request.method == 'POST':
         normal_account_form = NormalAccountForm(request.POST)
         if normal_account_form.is_valid():
             username = normal_account_form['username'].value()
@@ -64,73 +64,43 @@ def signup(request):
     else:
         normal_account_form = NormalAccountForm()
 
-    # Office & Admin Account Sign Up Mechanism
-    
-    """
-    # Craeting a normal acount form validation
-    if request.POST.get("normal_account_signup_btn"):
-        username = request.POST.get("normal_account_username")
-        email = request.POST.get("normal_account_email")
-        first_name = request.POST.get("normal_account_first_name")
-        last_name = request.POST.get("normal_account_last_name")
-        password = request.POST.get("normal_account_password")
-        office_key = request.POST.get("office_key")
+    if request.method == 'POST':
+        office_account_form = OfficeAccountForm(request.POST)
+        if office_account_form.is_valid():
+            office_name = office_account_form.cleaned_data['office_name']
+            office_type = office_account_form.cleaned_data['office_type']
+            username = office_account_form.cleaned_data['username']
+            email = office_account_form.cleaned_data['email']
+            first_name = office_account_form.cleaned_data['first_name']
+            last_name = office_account_form.cleaned_data['last_name']
+            password = office_account_form.cleaned_data['password']
 
-        if User.objects.filter(username=username, email=email).exists():
-            # Do nothing since there is a user already created
-            invalid_account_form_credits = True
-        else:
-            if Office.objects.filter(secret_key=office_key).exists():
+            if Office.objects.filter(name=office_name).exists() or\
+                    User.objects.filter(username=username).exists():
+                # Do nothing since there is already an office
+                invalid_office_form_credits = True
+            else:
+                # Create a new user
                 new_user = User(
                     username=username, email=email, first_name=first_name,
                     last_name=last_name, password=password
                 )
                 new_user.save()
-                # Now get the user from the db and assign it to the office
-                new_user = User.objects.get(username=username, email=email)
-                office = Office.objects.get(secret_key=office_key)
-                new_office_worker = OfficeWorkers(
-                    user=new_user, joined_office=office
-                    )
-                new_office_worker.save()
+                # Create a new office with the new user as admin
+                new_user = User.objects.get(username=username)
+                new_office = Office(
+                    admin=new_user, name=office_name, type=office_type
+                )
+                new_office.save()
                 return HttpResponseRedirect('/home/login/')
-            else:
-                # Do nothing
-                invalid_account_form_credits = True
-
-    # Creating a office with admin account form validation
-    if request.POST.get("office_admin_signup_btn"):
-        office_name = request.POST.get("office_name")
-        office_type = request.POST.get("office_type")
-        username = request.POST.get("office_admin_username")
-        email = request.POST.get("office_admin_email")
-        first_name = request.POST.get("office_admin_first_name")
-        last_name = request.POST.get("office_admin_last_name")
-        password = request.POST.get("office_admin_password")
-
-        if Office.objects.filter(name=office_name).exists() or\
-                User.objects.filter(username=username).exists():
-            # Do nothing since there is already an office
-            invalid_office_form_credits = True
-        else:
-            # Create a new user
-            new_user = User(
-                username=username, email=email, first_name=first_name,
-                last_name=last_name, password=password
-            )
-            new_user.save()
-            # Create a new office with the new user as admin
-            new_user = User.objects.get(username=username)
-            new_office = Office(
-                admin=new_user, name=office_name, type=office_type
-            )
-            new_office.save()
-    """
+    else:
+        office_account_form = OfficeAccountForm()
 
     data = {
         'invalid_office_form_credits': invalid_office_form_credits,
         'invalid_account_form_credits': invalid_account_form_credits,
         'normal_account_form': normal_account_form,
+        'office_account_form': office_account_form,
     }
     return render(request, 'home_app/signup.html', context=data)
 
