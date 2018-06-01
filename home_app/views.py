@@ -93,6 +93,8 @@ def signup(request):
                 )
                 new_office.save()
                 return HttpResponseRedirect('/home/login/')
+        else:
+            invalid_office_form_credits = True
     else:
         office_account_form = OfficeAccountForm()
 
