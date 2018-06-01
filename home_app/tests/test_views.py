@@ -42,6 +42,3 @@ class TestSignupView(TestCase):
         response = self.client.get(reverse('signup'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home_app/signup.html')
-
-    def test_check_view_context(self):
-        response = self.

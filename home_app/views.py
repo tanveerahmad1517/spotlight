@@ -65,7 +65,7 @@ def signup(request):
         normal_account_form = NormalAccountForm()
 
     # Office & Admin Account Sign Up Mechanism
-
+    
     """
     # Craeting a normal acount form validation
     if request.POST.get("normal_account_signup_btn"):
@@ -130,7 +130,7 @@ def signup(request):
     data = {
         'invalid_office_form_credits': invalid_office_form_credits,
         'invalid_account_form_credits': invalid_account_form_credits,
-        'normal_account_form': noraml_account_form,
+        'normal_account_form': normal_account_form,
     }
     return render(request, 'home_app/signup.html', context=data)
 
