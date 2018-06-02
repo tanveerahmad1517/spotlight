@@ -1,11 +1,11 @@
 from django.test import TestCase
+from django.urls import reverse
 from django.contrib.auth.models import User
 from home_app.models import Office, OfficeWorkers, Announcament
-from django.urls import reverse
-from home_app.forms import NormalAccountForm, OfficeAccountForm
+from home_app.forms import NormalAccountForm, OfficeAccountForm, LoginGateForm
 
 
-# Testing the normal account creation
+# TESTING THE NORMAL ACCOUNT SIGNUP FORM
 class TestNormalAccountForm(TestCase):
 
     def test_form(self):
@@ -21,6 +21,7 @@ class TestNormalAccountForm(TestCase):
         self.assertTrue(form.is_valid())
 
 
+# TESTING THE OFFICE AND ADMIN SIGNUP FORM
 class TestOfficeAccountForm(TestCase):
 
     def test_form(self):
@@ -34,4 +35,16 @@ class TestOfficeAccountForm(TestCase):
             'password': '123',
         }
         form = OfficeAccountForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+
+# TESTING THE LOGIN FORM
+class TestLoginForm(TestCase):
+
+    def test_form(self):
+        form_data = {
+            'username': 'test_username',
+            'password': '123',
+        }
+        form = LoginGateForm(data=form_data)
         self.assertTrue(form.is_valid())

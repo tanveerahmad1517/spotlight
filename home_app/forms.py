@@ -74,6 +74,19 @@ class OfficeAccountForm(forms.Form):
     )
 
 
+# LOGIN FORM
+class LoginGateForm(forms.Form):
+    username = forms.CharField(
+        max_length=None, required=True, label='',
+        widget=forms.TextInput(attrs={'placeholder': 'Username'})
+    )
+    password = forms.CharField(
+        max_length=None, required=True, label='',
+        widget=forms.TextInput(attrs={'placeholder': 'Password',
+                                      'type': 'password'})
+    )
+
+
 # ANNOUNCAMENT FORM
 class AnnouncamentForm(forms.Form):
     content = forms.CharField(
