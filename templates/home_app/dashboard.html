@@ -12,7 +12,7 @@
 
   <form id="announcament-form" method="post" action="{% url 'dashboard' current_office.name %}">
     {% csrf_token %}
-    <input type="text" placeholder="Announce ... " id="announcament-content" name="content"/>
+    {{ announcament_form.content }}
     <input value="Submit" type="submit" id="announcament_submit_form" name="announcament_submit_button"/>
   </form>
 

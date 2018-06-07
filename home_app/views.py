@@ -126,10 +126,20 @@ def login_gate(request):
             password = login_form.cleaned_data['password']
             user = User.objects.get(username=username, password=password)
             user_office = OfficeWorkers.objects.get(user=user)
+            try:
+                user_settings = ProfileSettings.objects.get(user=user)
+            except ObjectDoesNotExist:
+                user_settings = None
+
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect(
-                    '/'+str(user_office.joined_office.name)+'/dashboard/'
+                if user_settings is not None:
+                    return HttpResponseRedirect(
+                        '/'+str(user_office.joined_office.name)+'/dashboard/'
+                        )
+                else:
+                    return HttpResponseRedirect(
+                        '/'+str(user_office.joined_office.name)+'/settings/'
                     )
             else:
                 invalid_user_credits = True
@@ -159,13 +169,17 @@ def dashboard(request, officename):
         current_user_settings = None
 
     # Announcament Mechanism
-    if request.POST.get('announcament_submit_button'):
-        content = request.POST.get('content')
-        new_announcament = Announcament(
-            user=current_user, profile_settings=current_user_settings,
-            content=content,
-        )
-        new_announcament.save()
+    if request.method == 'POST':
+        announcament_form = AnnouncamentForm(request.POST)
+        if announcament_form.is_valid():
+            content = announcament_form.cleaned_data['content']
+            new_announcament = Announcament(
+                user=current_user, profile_settings=current_user_settings,
+                content=content,
+            )
+            new_announcament.save()
+    else:
+        announcament_form = AnnouncamentForm()
     # Announcament Objects
     try:
         all_announcaments = Announcament.objects.order_by('-publish_date')
@@ -183,6 +197,7 @@ def dashboard(request, officename):
         'current_office': current_office,
         'has_home_navbar': True,
         'current_user_settings': current_user_settings,
+        'announcament_form': announcament_form,
         'all_announcaments': all_announcaments,
         'current_user_desks': current_user_desks,
     }

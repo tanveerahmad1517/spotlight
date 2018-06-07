@@ -82,3 +82,8 @@ class TestDashboardView(TestCase):
     def test_view_exists_at_desired_url(self):
         response = self.client.get("/test_office/dashboard/")
         self.assertEqual(response.status_code, 302)
+
+    def test_view_uses_correct_template(self):
+        response = self.client.get("/test_office/dashboard/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'home_app/dashboard.html')
