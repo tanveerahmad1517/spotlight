@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block css_link %}
-  <link rel="stylesheet" href="{% static 'home_app/css/login_gate.css' %}" />
+  <link rel="stylesheet" href="{% static 'home_app/css/login_gate_style.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -20,8 +20,8 @@
 
   <form action="{% url 'login_gate' %}" method="POST" id="login-gate-form">
     {% csrf_token %}
-    <input type="text" placeholder="Username" name="username">
-    <input type="password" placeholder="Password" name="password">
+    {{ login_form.username }}
+    {{ login_form.password }}
     <input type="submit" value="Log In" name="login_submit_button" id="login_submit_button">
   </form>
   </div>

@@ -8,7 +8,7 @@ from home_app.models import Office, OfficeWorkers, Announcament
 from profile_app.models import ProfileSettings
 from desk_app.models import Desk, DeskWorkers, Article
 from home_app.forms import NormalAccountForm, OfficeAccountForm
-from home_app.forms import AnnouncamentForm
+from home_app.forms import AnnouncamentForm, LoginGateForm
 
 
 # HOME
@@ -92,6 +92,12 @@ def signup(request):
                     admin=new_user, name=office_name, type=office_type
                 )
                 new_office.save()
+                # Create a new office worker
+                new_office = Office.objects.get(name=office_name)
+                new_office_worker = OfficeWorkers(
+                    user=new_user, joined_office=new_office
+                )
+                new_office_worker.save()
                 return HttpResponseRedirect('/home/login/')
         else:
             invalid_office_form_credits = True
@@ -112,18 +118,32 @@ def signup(request):
 # Desc: This is a gate that seperates staff members from curious eyes
 def login_gate(request):
     invalid_user_credits = False
-    if request.POST.get('login_submit_button'):
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return HttpResponseRedirect('/home/dashboard/')
+
+    if request.method == 'POST':
+        login_form = LoginGateForm(request.POST)
+        if login_form.is_valid():
+            username = login_form.cleaned_data['username']
+            password = login_form.cleaned_data['password']
+            user = User.objects.get(username=username, password=password)
+            user_office = OfficeWorkers.objects.get(user=user)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect(
+                    '/home/'+str(user_office.joined_office.name)+'/'
+                    )
+            else:
+                invalid_user_credits = True
         else:
             invalid_user_credits = True
+    else:
+        login_form = LoginGateForm()
 
+    '''
+        user = authenticate(request, username=username, password=password)
+    '''
     data = {
         'invalid_user_credits': invalid_user_credits,
+        'login_form': login_form,
     }
     return render(request, 'home_app/login_gate.html', context=data)
 
