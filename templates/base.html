@@ -34,7 +34,7 @@
   {% if has_home_navbar == True %}
     <!-- navbar left-part -->
     <div id="home-navbar-left-part">
-      <a href="{% url 'dashboard' %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
+      <a href="{% url 'dashboard' current_office.name %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
       <a id="home-search-link" href="{% url 'search' %}"><p class="text-center"><i class="fa fa-search"></i></p></a>
       <!-- MAX : 9 -->
       <div id="home-desk-links">
@@ -54,7 +54,7 @@
           <h5>@{{ current_user.username }}</h5>
         </div>
       </div>
-      <a href="{% url 'dashboard' %}"><i class="fa fa-bell"></i>Dashboard</a>
+      <a href="{% url 'dashboard' current_office.name %}"><i class="fa fa-bell"></i>Dashboard</a>
       <a href="{% url 'desk_browse' %}"><i class="fa fa-book"></i> Desk</a>
       <a href="{% url 'contributions' %}"><i class="fa fa-user-circle"></i> Profile</a>
       <a href="{% url 'publish' %}"><i class="fa fa-paper-plane"></i> Publish</a>
@@ -69,7 +69,7 @@
   {% if has_desk_navbar == True %}
     <!-- navbar left-part -->
     <div id="home-navbar-left-part">
-      <a href="{% url 'dashboard' %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
+      <a href="{% url 'dashboard' current_office.name %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
       <a id="home-search-link" href="{% url 'search' %}"><p class="text-center"><i class="fa fa-search"></i></p></a>
       <!-- MAX : 10 -->
       <div id="home-desk-links">
@@ -109,7 +109,7 @@
   {% if has_profile_navbar == True %}
     <!-- navbar left-part -->
     <div id="home-navbar-left-part">
-      <a href="{% url 'dashboard' %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
+      <a href="{% url 'dashboard' current_office.name %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
       <a id="home-search-link" href="{% url 'search' %}"><p class="text-center"><i class="fa fa-search"></i></p></a>
       <!-- MAX : 10 -->
       <div id="home-desk-links">

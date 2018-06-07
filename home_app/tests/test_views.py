@@ -62,3 +62,23 @@ class TestLoginView(TestCase):
         response = self.client.get(reverse('login_gate'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home_app/login_gate.html')
+
+
+# TESTING OFFICE DASHBOARD
+class TestDashboardView(TestCase):
+
+    def setUp(self):
+        test_user = User.objects.create(username='test_user', password='123')
+        test_office = Office.objects.create(
+            name='test_office', admin=test_user
+        )
+
+    def test_view_kwargs(self):
+        response = self.client.get(
+            reverse('dashboard', kwargs={'officename': 'test_office', })
+        )
+        self.assertEqual(response.status_code, 302)
+
+    def test_view_exists_at_desired_url(self):
+        response = self.client.get("/test_office/dashboard/")
+        self.assertEqual(response.status_code, 302)

@@ -129,7 +129,7 @@ def login_gate(request):
             if user is not None:
                 login(request, user)
                 return HttpResponseRedirect(
-                    '/home/'+str(user_office.joined_office.name)+'/'
+                    '/'+str(user_office.joined_office.name)+'/dashboard/'
                     )
             else:
                 invalid_user_credits = True
@@ -137,10 +137,6 @@ def login_gate(request):
             invalid_user_credits = True
     else:
         login_form = LoginGateForm()
-
-    '''
-        user = authenticate(request, username=username, password=password)
-    '''
     data = {
         'invalid_user_credits': invalid_user_credits,
         'login_form': login_form,
@@ -152,8 +148,9 @@ def login_gate(request):
 # --------------------
 # Desc: Home page showing the announcaments of every user
 @login_required
-def dashboard(request):
+def dashboard(request, officename):
     current_user = get_object_or_404(User, pk=request.user.id)
+    current_office = Office.objects.get(name=officename)
 
     # Settings Objects
     try:
@@ -183,6 +180,7 @@ def dashboard(request):
 
     data = {
         'current_user': current_user,
+        'current_office': current_office,
         'has_home_navbar': True,
         'current_user_settings': current_user_settings,
         'all_announcaments': all_announcaments,

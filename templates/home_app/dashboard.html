@@ -10,7 +10,7 @@
   <h3 id="header">Dashboard</h3>
   <br />
 
-  <form id="announcament-form" method="post" action="{% url 'dashboard' %}">
+  <form id="announcament-form" method="post" action="{% url 'dashboard' current_office.name %}">
     {% csrf_token %}
     <input type="text" placeholder="Announce ... " id="announcament-content" name="content"/>
     <input value="Submit" type="submit" id="announcament_submit_form" name="announcament_submit_button"/>
