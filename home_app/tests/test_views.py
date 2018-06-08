@@ -1,7 +1,8 @@
-from django.test import TestCase
+from django.test import TestCase, Client
+from django.urls import reverse
+import unittest
 from django.contrib.auth.models import User
 from home_app.models import Office, OfficeWorkers, Announcament
-from django.urls import reverse
 
 
 # TESTING THE HOME VIEW
@@ -21,7 +22,7 @@ class TestHomeView(TestCase):
     def test_view_uses_correct_template(self):
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'home_app/home.html')
+        self.assertTemplateUsed('home.html')
 
 
 # TESTING THE SIGNUP VIEW
@@ -41,7 +42,7 @@ class TestSignupView(TestCase):
     def test_view_uses_correct_template(self):
         response = self.client.get(reverse('signup'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'home_app/signup.html')
+        self.assertTemplateUsed('signup.html')
 
 
 # TESTING THE LOGIN VIEW
@@ -61,29 +62,30 @@ class TestLoginView(TestCase):
     def test_view_uses_correct_template(self):
         response = self.client.get(reverse('login_gate'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'home_app/login_gate.html')
+        self.assertTemplateUsed('login_gate.html')
 
 
 # TESTING OFFICE DASHBOARD
 class TestDashboardView(TestCase):
-
     def setUp(self):
-        test_user = User.objects.create(username='test_user', password='123')
-        test_office = Office.objects.create(
-            name='test_office', admin=test_user
-        )
+        self.client = Client()
+        self.user = User.objects.create(username='test_user', password='123')
+        self.office = Office.objects.create(name='foo', admin=self.user)
 
-    def test_view_kwargs(self):
-        response = self.client.get(
-            reverse('dashboard', kwargs={'officename': 'test_office', })
-        )
+    def test_view_is_accesible_by_name(self):
+        office = Office.objects.get(id=1)
+        response = self.client.get(reverse('dashboard', args=[office.name]))
         self.assertEqual(response.status_code, 302)
 
-    def test_view_exists_at_desired_url(self):
-        response = self.client.get("/test_office/dashboard/")
+    def test_view_works_with_args(self):
+        office = Office.objects.get(id=1)
+        response = self.client.get(reverse('dashboard', args=[office.name]))
         self.assertEqual(response.status_code, 302)
 
-    def test_view_uses_correct_template(self):
-        response = self.client.get("/test_office/dashboard/")
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'home_app/dashboard.html')
+    def test_logged_in_user_uses_correct_template(self):
+        office = Office.objects.get(id=1)
+        login = self.client.login(username='test_user', password='123')
+        response = self.client.get(reverse('dashboard', args=[office.name]))
+        # Check User is logged in
+        self.assertEqual(response.status_code, 302)
+        self.assertTemplateUsed('dashboard.html')

@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from home_app.models import Office, OfficeWorkers, Announcament
 from home_app.forms import NormalAccountForm, OfficeAccountForm, LoginGateForm
+from home_app.forms import AnnouncamentForm
 
 
 # TESTING THE NORMAL ACCOUNT SIGNUP FORM
@@ -47,4 +48,15 @@ class TestLoginForm(TestCase):
             'password': '123',
         }
         form = LoginGateForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+
+# TESTING THE ANNOUNCAMENT FORM
+class TestAnnouncamentForm(TestCase):
+
+    def test_form(self):
+        form_data = {
+            'content': 'test_content',
+        }
+        form = AnnouncamentForm(data=form_data)
         self.assertTrue(form.is_valid())
