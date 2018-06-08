@@ -174,8 +174,8 @@ def dashboard(request, officename):
         if announcament_form.is_valid():
             content = announcament_form.cleaned_data['content']
             new_announcament = Announcament(
-                user=current_user, profile_settings=current_user_settings,
-                content=content,
+                user=current_user, office=current_office, content=content,
+                profile_settings=current_user_settings,
             )
             new_announcament.save()
     else:

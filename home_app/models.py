@@ -40,6 +40,9 @@ class OfficeWorkers(models.Model):
 # ANNOUNCAMENTS
 class Announcament(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    office = models.ForeignKey(
+        Office, on_delete=models.CASCADE, null=True, blank=True
+    )
     profile_settings = models.ForeignKey(
         ProfileSettings, on_delete=models.CASCADE, null=True, blank=True,
     )
