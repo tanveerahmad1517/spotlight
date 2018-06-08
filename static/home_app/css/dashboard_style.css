@@ -21,6 +21,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border: 2px solid transparent;
   height: 50px;
+  vertical-align: top !important;
 }
 #announcament-content:hover {
   border-color:#2ECC71;
@@ -34,6 +35,7 @@
   background-color: #2ECC71;
   border: 2px solid #2ECC71;
   border-radius: 3px;
+  vertical-align: top !important;
 }
 #announcament_submit_form:hover {
   background-color: white;
@@ -53,7 +55,7 @@
   height: auto;
   width: 100%;
   border: 1px solid lightgray;
-  border-radius: 4px;
+  box-shadow: 3px 4px 0 rgba(0,0,0,0.1);
   margin-bottom: 10px !important;
   padding: 5px 10px;
 }
