@@ -94,11 +94,3 @@ class AnnouncamentForm(forms.Form):
         widget=forms.TextInput(attrs={'placeholder': 'Announce ...',
                                       'id': 'announcament-content'})
     )
-
-
-class AnnouncamentDeleteForm(forms.Form):
-    hidden = forms.CharField(
-        max_length=None, label='', required=True,
-        widget=forms.TextInput(attrs={'value': '{{ announcament.id }}',
-                                      'type': 'hidden', })
-    )

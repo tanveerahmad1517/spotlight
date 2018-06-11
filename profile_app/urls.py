@@ -7,5 +7,5 @@ urlpatterns = [
     # Desk Management
     path('management/', views.desk_management, name='desk_management'),
     # Settings
-    path('settings/', views.settings, name='settings'),
+    path('<str:officename>/settings/', views.settings, name='settings'),
 ]

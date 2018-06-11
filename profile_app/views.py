@@ -4,8 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from .models import ProfileSettings
+from profile_app.models import ProfileSettings
 from desk_app.models import Desk, DeskWorkers, Article
+from home_app.models import Office, OfficeWorkers
 
 
 # CONTRIBUTIONS
@@ -13,7 +14,7 @@ from desk_app.models import Desk, DeskWorkers, Article
 # Desc: This is the overall summary page of the each user containing contribu-
 #       -tions and and publised articles and so on.
 @login_required
-def contributions(request):
+def contributions(request, officename):
     current_user = get_object_or_404(User, pk=request.user.id)
 
     # Article objects
@@ -85,8 +86,13 @@ def desk_management(request):
 # Desc: This is the section in your profile that contains the settings form th-
 #       -at is used to change your profiles settings
 @login_required
-def settings(request):
+def settings(request, officename):
     current_user = get_object_or_404(User, pk=request.user.id)
+    current_office = Office.objects.get(name=officename)
+    try:
+        office_worker = OfficeWorkers.objects.get(user=current_user)
+    except ObjectDoesNotExist:
+        office_worker = None
 
     # Settings Mechanism
     if request.POST.get('settings_submit_button'):
@@ -121,6 +127,8 @@ def settings(request):
 
     data = {
         'current_user': current_user,
+        'current_office': current_office,
+        'office_worker': office_worker,
         'has_profile_navbar': True,
         'current_user_settings': current_user_settings,
         'current_user_desks': current_user_desks,

@@ -87,3 +87,16 @@
   margin-bottom: 5px;
   margin-top: 5px;
 }
+
+#deletion_form {
+  display: inline;
+  float: right;
+}
+#deletion_form input {
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+#deletion_form input:hover {
+  color: red;
+  transition: 0.5s;
+}

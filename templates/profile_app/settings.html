@@ -9,7 +9,7 @@
 <div id="wrapper">
   <h3 id="header">Settings</h3>
   <br />
-  <form action="{% url 'settings' %}" method="post" enctype="multipart/form-data">
+  <form action="{% url 'settings' current_office.name %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <label>Profile Photo</label>
     <input style="margin-bottom:10px;" type="file" name="profile_photo" />

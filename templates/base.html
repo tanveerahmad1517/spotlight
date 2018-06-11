@@ -1,3 +1,5 @@
+
+
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
@@ -30,124 +32,130 @@
 
 <body>
 
-  <!-- HOME  NAVBAR  =================================================== -->
-  {% if has_home_navbar == True %}
-    <!-- navbar left-part -->
-    <div id="home-navbar-left-part">
-      <a href="{% url 'dashboard' current_office.name %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
-      <a id="home-search-link" href="{% url 'search' %}"><p class="text-center"><i class="fa fa-search"></i></p></a>
-      <!-- MAX : 9 -->
-      <div id="home-desk-links">
-        {% for desk in current_user_desks %}
-          <a href="{% url 'to_do' deskname=desk.joined_desk.name %}" id="desk-link"><p><i class="{{ desk.joined_desk.get_category_display }}"></i> <span>{{ desk.joined_desk.name }}</span></p></a>
-        {% endfor %}
-      </div>
-      <a id="home-help-link" href="" class="text-center"><p class="text-center">?</p></a>
-    </div><!-- /navbar left part -->
+  {% if office_worker.joined_office == current_office %}
 
-    <!-- div navbar right part -->
-    <div id="home-navbar-right-part">
-      <div id="right-part-author-info">
-        <img src="{{ current_user_settings.profile_photo.url }}" alt="ss" height="55px" width="55px" />
-        <div id="right-part-author-name">
-          <h4> {{ current_user_settings.name }}</h4>
-          <h5>@{{ current_user.username }}</h5>
+    <!-- HOME  NAVBAR  =================================================== -->
+    {% if has_home_navbar == True %}
+      <!-- navbar left-part -->
+      <div id="home-navbar-left-part">
+        <a href="{% url 'dashboard' current_office.name %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
+        <a id="home-search-link" href="{% url 'search' %}"><p class="text-center"><i class="fa fa-search"></i></p></a>
+        <!-- MAX : 9 -->
+        <div id="home-desk-links">
+          {% for desk in current_user_desks %}
+            <a href="{% url 'to_do' deskname=desk.joined_desk.name %}" id="desk-link"><p><i class="{{ desk.joined_desk.get_category_display }}"></i> <span>{{ desk.joined_desk.name }}</span></p></a>
+          {% endfor %}
         </div>
-      </div>
-      <a href="{% url 'dashboard' current_office.name %}"><i class="fa fa-bell"></i>Dashboard</a>
-      <a href="{% url 'desk_browse' %}"><i class="fa fa-book"></i> Desk</a>
-      <a href="{% url 'contributions' %}"><i class="fa fa-user-circle"></i> Profile</a>
-      <a href="{% url 'publish' %}"><i class="fa fa-paper-plane"></i> Publish</a>
-      <form method="POST" action="{% url 'logout' %}" id="logout_form">
-        {% csrf_token %}
-        <input type="submit" value="Log Out" />
-      </form>
-    </div><!-- navbar right part -->
-  {% endif %}
+        <a id="home-help-link" href="" class="text-center"><p class="text-center">?</p></a>
+      </div><!-- /navbar left part -->
 
-  <!-- DESK NAVBAR =================================================== -->
-  {% if has_desk_navbar == True %}
-    <!-- navbar left-part -->
-    <div id="home-navbar-left-part">
-      <a href="{% url 'dashboard' current_office.name %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
-      <a id="home-search-link" href="{% url 'search' %}"><p class="text-center"><i class="fa fa-search"></i></p></a>
-      <!-- MAX : 10 -->
-      <div id="home-desk-links">
-        {% for desk in current_user_desks %}
-          <a href="{% url 'to_do' deskname=desk.joined_desk.name %}" id="desk-link"><p><i class="{{ desk.joined_desk.get_category_display }}"></i> <span>{{ desk.joined_desk.name }}</span></p></a>
-        {% endfor %}
-      </div>
-      <a id="home-help-link" href="" class="text-center"><p class="text-center">?</p></a>
-    </div><!-- /navbar left part -->
+      <!-- div navbar right part -->
+      <div id="home-navbar-right-part">
+        <div id="right-part-author-info">
+          <img src="{{ current_user_settings.profile_photo.url }}" alt="ss" height="55px" width="55px" />
+          <div id="right-part-author-name">
+            <h4> {{ current_user_settings.name }}</h4>
+            <h5>@{{ current_user.username }}</h5>
+          </div>
+        </div>
+        <a href="{% url 'dashboard' current_office.name %}"><i class="fa fa-bell"></i>Dashboard</a>
+        <a href="{% url 'desk_browse' %}"><i class="fa fa-book"></i> Desk</a>
+        <a href=""><i class="fa fa-user-circle"></i> Profile</a>
+        <a href="{% url 'publish' %}"><i class="fa fa-paper-plane"></i> Publish</a>
+        <form method="POST" action="{% url 'logout' %}" id="logout_form">
+          {% csrf_token %}
+          <input type="submit" value="Log Out" />
+        </form>
+      </div><!-- navbar right part -->
+    {% endif %}
 
-    <!-- div navbar right part -->
-    <div id="home-navbar-right-part">
-      <div id="right-part-author-info">
-        <img src="{{ desk.image.url }}" alt="Profile photo" height="55px" width="55px" />
+    <!-- DESK NAVBAR =================================================== -->
+    {% if has_desk_navbar == True %}
+      <!-- navbar left-part -->
+      <div id="home-navbar-left-part">
+        <a href="{% url 'dashboard' current_office.name %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
+        <a id="home-search-link" href="{% url 'search' %}"><p class="text-center"><i class="fa fa-search"></i></p></a>
+        <!-- MAX : 10 -->
+        <div id="home-desk-links">
+          {% for desk in current_user_desks %}
+            <a href="{% url 'to_do' deskname=desk.joined_desk.name %}" id="desk-link"><p><i class="{{ desk.joined_desk.get_category_display }}"></i> <span>{{ desk.joined_desk.name }}</span></p></a>
+          {% endfor %}
+        </div>
+        <a id="home-help-link" href="" class="text-center"><p class="text-center">?</p></a>
+      </div><!-- /navbar left part -->
 
-        <div id="right-part-author-name">
-          <h4> {{ desk.name }}</h4>
-          {% if current_user == desk.sub_editor %}
-            <h5 style="color:#2ECC71; border:#2ECC71 1px solid ; padding:3px; border-radius:2px;">@{{ current_user.username }}</h5>
+      <!-- div navbar right part -->
+      <div id="home-navbar-right-part">
+        <div id="right-part-author-info">
+          <img src="{{ desk.image.url }}" alt="Profile photo" height="55px" width="55px" />
+
+          <div id="right-part-author-name">
+            <h4> {{ desk.name }}</h4>
+            {% if current_user == desk.sub_editor %}
+              <h5 style="color:#2ECC71; border:#2ECC71 1px solid ; padding:3px; border-radius:2px;">@{{ current_user.username }}</h5>
+            {% else %}
+              <h5 style="color:#3498DB; border:1px solid #3498DB; padding:3px; border-radius:2px;">@{{ current_user.username }}</h5>
+            {% endif %}
+          </div>
+        </div>
+        <a href="{% url 'to_do' deskname=desk.name %}"><i class="fa fa-list"></i> To-Do</a>
+        <a href="{% url 'new_article' deskname=desk.name %}"><i class="fa fa-pencil"></i> New Article</a>
+        <a href="{% url 'in_progress' deskname=desk.name %}"><i class="fa fa-tasks"></i> In Progress</a>
+        <a href="{% url 'done' deskname=desk.name %}"><i class="fa fa-check"></i> Done</a>
+        <form method="POST" action="{% url 'logout' %}" id="logout_form">
+          {% csrf_token %}
+          <input type="submit" value="Log Out" />
+        </form>
+      </div><!-- navbar right part -->
+    {% endif %}
+
+    <!-- PROFILE NAVBAR  =================================================== -->
+    {% if has_profile_navbar == True %}
+      <!-- navbar left-part -->
+      <div id="home-navbar-left-part">
+        <a href="{% url 'dashboard' current_office.name %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
+        <a id="home-search-link" href="{% url 'search' %}"><p class="text-center"><i class="fa fa-search"></i></p></a>
+        <!-- MAX : 10 -->
+        <div id="home-desk-links">
+          {% for desk in current_user_desks %}
+            <a href="{% url 'to_do' deskname=desk.joined_desk.name %}" id="desk-link"><p><i class="{{ desk.joined_desk.get_category_display }}"></i> <span>{{ desk.joined_desk.name }}</span></p></a>
+          {% endfor %}
+        </div>
+        <a id="home-help-link" href="" class="text-center"><p class="text-center">?</p></a>
+      </div><!-- /navbar left part -->
+
+      <!-- div navbar right part -->
+      <div id="home-navbar-right-part">
+        <div id="right-part-author-info">
+          {% if current_user_settings.profile_photo %}
+              <img src="{{ current_user_settings.profile_photo.url }}" alt="Profile photo" height="55px" width="55px" />
           {% else %}
-            <h5 style="color:#3498DB; border:1px solid #3498DB; padding:3px; border-radius:2px;">@{{ current_user.username }}</h5>
+             <img src="" alt="go_to_settings" height="55px" width="55px" />
           {% endif %}
+
+          <div id="right-part-author-name">
+            <h4> {{ current_user_settings.name }}</h4>
+            <h5>@{{ current_user.username }}</h5>
+          </div>
         </div>
-      </div>
-      <a href="{% url 'to_do' deskname=desk.name %}"><i class="fa fa-list"></i> To-Do</a>
-      <a href="{% url 'new_article' deskname=desk.name %}"><i class="fa fa-pencil"></i> New Article</a>
-      <a href="{% url 'in_progress' deskname=desk.name %}"><i class="fa fa-tasks"></i> In Progress</a>
-      <a href="{% url 'done' deskname=desk.name %}"><i class="fa fa-check"></i> Done</a>
-      <form method="POST" action="{% url 'logout' %}" id="logout_form">
-        {% csrf_token %}
-        <input type="submit" value="Log Out" />
-      </form>
-    </div><!-- navbar right part -->
+        <a href=""><i class="fa fa-briefcase"></i> Contributions</a>
+        <a href=""><i class="fa fa-book"></i> Desk Management</a>
+        <a href="{% url 'settings' current_office.name %}"><i class="fa fa-cog"></i> Settings</a>
+        <form method="POST" action="{% url 'logout' %}" id="logout_form">
+          {% csrf_token %}
+          <input type="submit" value="Log Out" name="log_out_btn"/>
+        </form>
+      </div><!-- navbar right part -->
+    {% endif %}
+
+    {% block content %}
+        <!-- content goes here -->
+    {% endblock %}
+
+  {% else %}
+    <h1 style="text-align:center; margin-top:20vh;">Sorry, you don't have the permission to view this office ... </h1>
+    <a href="{% url 'home' %}"><h2 style="text-align:center;">Return to home page</h2></a>
   {% endif %}
-
-  <!-- PROFILE NAVBAR  =================================================== -->
-  {% if has_profile_navbar == True %}
-    <!-- navbar left-part -->
-    <div id="home-navbar-left-part">
-      <a href="{% url 'dashboard' current_office.name %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
-      <a id="home-search-link" href="{% url 'search' %}"><p class="text-center"><i class="fa fa-search"></i></p></a>
-      <!-- MAX : 10 -->
-      <div id="home-desk-links">
-        {% for desk in current_user_desks %}
-          <a href="{% url 'to_do' deskname=desk.joined_desk.name %}" id="desk-link"><p><i class="{{ desk.joined_desk.get_category_display }}"></i> <span>{{ desk.joined_desk.name }}</span></p></a>
-        {% endfor %}
-      </div>
-      <a id="home-help-link" href="" class="text-center"><p class="text-center">?</p></a>
-    </div><!-- /navbar left part -->
-
-    <!-- div navbar right part -->
-    <div id="home-navbar-right-part">
-      <div id="right-part-author-info">
-        {% if current_user_settings.profile_photo %}
-            <img src="{{ current_user_settings.profile_photo.url }}" alt="Profile photo" height="55px" width="55px" />
-        {% else %}
-           <img src="" alt="go_to_settings" height="55px" width="55px" />
-        {% endif %}
-
-        <div id="right-part-author-name">
-          <h4> {{ current_user_settings.name }}</h4>
-          <h5>@{{ current_user.username }}</h5>
-        </div>
-      </div>
-      <a href="{% url 'contributions' %}"><i class="fa fa-briefcase"></i> Contributions</a>
-      <a href="{% url 'desk_management' %}"><i class="fa fa-book"></i> Desk Management</a>
-      <a href="{% url 'settings' %}"><i class="fa fa-cog"></i> Settings</a>
-      <form method="POST" action="{% url 'logout' %}" id="logout_form">
-        {% csrf_token %}
-        <input type="submit" value="Log Out" name="log_out_btn"/>
-      </form>
-    </div><!-- navbar right part -->
-  {% endif %}
-
-  {% block content %}
-      <!-- content goes here -->
-  {% endblock %}
-
 
   <!-- BOOTSTRAP JQUERY -->
   <!-- jQuery library -->

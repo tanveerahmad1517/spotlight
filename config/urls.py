@@ -9,9 +9,9 @@ urlpatterns = [
     # Home App
     path('', include('home_app.urls')),
     # Desk App
-    path('desk/', include('desk_app.urls')),
+    path('', include('desk_app.urls')),
     # Profile App
-    path('profile/', include('profile_app.urls')),
+    path('', include('profile_app.urls')),
     # Core Auth System
     path('', include('django.contrib.auth.urls')),
 ]

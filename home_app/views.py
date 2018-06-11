@@ -163,6 +163,11 @@ def login_gate(request):
 def dashboard(request, officename):
     current_user = get_object_or_404(User, pk=request.user.id)
     current_office = Office.objects.get(name=officename)
+    # Office Worker objects
+    try:
+        office_worker = OfficeWorkers.objects.get(user=current_user)
+    except ObjectDoesNotExist:
+        office_worker = None
 
     # Settings Objects
     try:
@@ -188,17 +193,6 @@ def dashboard(request, officename):
         hidden_id = request.POST.get("hidden_id")
         announcament = Announcament.objects.filter(pk=hidden_id)
         announcament.delete()
-    '''
-    if request.method == 'POST':
-        announcament_delete_form = AnnouncamentDeleteForm(request.POST)
-        if announcament_delete_form.is_valid():
-            hidden_id = announcament_delete_form.cleaned_data['hidden']
-            print(hidden_id)
-        else:
-            print('form is not valid')
-    else:
-        announcament_delete_form = AnnouncamentDeleteForm()
-    '''
 
     # Announcament Objects
     try:
@@ -218,6 +212,7 @@ def dashboard(request, officename):
     data = {
         'current_user': current_user,
         'current_office': current_office,
+        'office_worker': office_worker,
         'has_home_navbar': True,
         'current_user_settings': current_user_settings,
         'announcament_form': announcament_form,
