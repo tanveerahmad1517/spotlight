@@ -12,6 +12,7 @@
   <form action="{% url 'settings' current_office.name %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <label>Profile Photo</label>
+    {{ settings_form.profile_photo }}
     <input style="margin-bottom:10px;" type="file" name="profile_photo" />
     <label>Name & Surname</label>
     <input class="settings_input" type="text" name="name" placeholder="Name & Surname" />

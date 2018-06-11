@@ -5,7 +5,6 @@ from home_app.models import Office, OfficeWorkers, Announcament
 
 # TESTING THE OFFICE MODEL
 class TestOfficeModel(TestCase):
-
     def setUp(self):
         user = User.objects.create(username='test_user', password='123')
         Office.objects.create(admin=user, name='test_office')
@@ -18,7 +17,6 @@ class TestOfficeModel(TestCase):
 
 # TEST OFFICE WORKERS MODEL
 class TestOfficeWorkersModel(TestCase):
-
     def setUp(self):
         user = User.objects.create(username='test_user', password='123')
         office = Office.objects.create(admin=user, name='test_office')
@@ -32,7 +30,6 @@ class TestOfficeWorkersModel(TestCase):
 
 # TEST ANNOUNCAMENT MODEL
 class TestAnnouncamentModel(TestCase):
-
     def setUp(self):
         user = User.objects.create(username='test_user', password='123')
         announcament = Announcament.objects.create(user=user, content='test')

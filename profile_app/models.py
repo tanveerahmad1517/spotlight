@@ -9,7 +9,6 @@ class ProfileSettings(models.Model):
     profile_photo = models.ImageField(
         upload_to='profile_photos/', blank=False, null=False
     )
-    name = models.CharField(max_length=200, blank=False, null=False)
     bio = models.TextField(blank=False, null=False)
     personal_link = models.CharField(max_length=200, blank=False, null=False)
 

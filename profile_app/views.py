@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login
 from profile_app.models import ProfileSettings
 from desk_app.models import Desk, DeskWorkers, Article
 from home_app.models import Office, OfficeWorkers
+from profile_app.forms import ProfileSettingsForm
 
 
 # CONTRIBUTIONS
@@ -95,6 +96,12 @@ def settings(request, officename):
         office_worker = None
 
     # Settings Mechanism
+    if request.method == 'POST':
+        settings_form = ProfileSettingsForm(request.POST)
+    else:
+        settings_form = ProfileSettingsForm()
+
+    # Settings Mechanism
     if request.POST.get('settings_submit_button'):
         profile_photo = request.FILES.get('profile_photo')
         name = request.POST.get('name')
@@ -132,5 +139,6 @@ def settings(request, officename):
         'has_profile_navbar': True,
         'current_user_settings': current_user_settings,
         'current_user_desks': current_user_desks,
+        'settings_form': settings_form,
     }
     return render(request, 'profile_app/settings.html', context=data)
