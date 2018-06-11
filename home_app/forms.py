@@ -91,6 +91,14 @@ class LoginGateForm(forms.Form):
 class AnnouncamentForm(forms.Form):
     content = forms.CharField(
         max_length=1000, label='', required=True,
-        widget=forms.Textarea(attrs={'placeholder': 'Announce ...',
-                                     'id': 'announcament-content'})
+        widget=forms.TextInput(attrs={'placeholder': 'Announce ...',
+                                      'id': 'announcament-content'})
+    )
+
+
+class AnnouncamentDeleteForm(forms.Form):
+    hidden = forms.CharField(
+        max_length=None, label='', required=True,
+        widget=forms.TextInput(attrs={'value': '{{ announcament.id }}',
+                                      'type': 'hidden', })
     )

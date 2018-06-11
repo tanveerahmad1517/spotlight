@@ -17,18 +17,23 @@
   </form>
 
   <div id="announcaments">
-    {% for announcament in all_announcaments %}
+    {% for announcament in office_announcaments %}
       <div id="announcament-cell">
         <div id="announcament-cell-author-info">
           {% if announcament.profile_settings %}
             <a href=""><img src="{{ announcament.profile_settings.profile_photo.url }}" alt="pp" height="30px" width="30px"/></a>
           {% else %}
-            <a href=""><img src="{% static 'news_app/assets/pp.jpg' %}" alt="pp" height="30px" width="30px"</a>
+            <a href=""><img src="{% static 'assets/pp.jpg' %}" alt="pp" height="30px" width="30px"</a>
           {% endif %}
           <a href=""><h5>{{ announcament.user.username }}</h5></a>
           <p>{{ announcament.publish_date }}</p>
         </div>
         <p>{{ announcament.content }}</p>
+        <form method="POST" action="{% url 'dashboard' current_office.name %}">
+          {% csrf_token %}
+          <input type="hidden" value="{{ announcament.id }}" name="hidden_id" />
+          <input type="submit" value="X" name="announcament_delete_btn" id="annoucnament_delete_btn" />
+        </form>
       </div><!-- /announcament-cell -->
     {% endfor %}
   </div><!-- /anoncaments -->

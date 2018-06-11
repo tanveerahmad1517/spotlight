@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.core.exceptions import ObjectDoesNotExist
 from home_app.models import Office, OfficeWorkers, Announcament
 from profile_app.models import ProfileSettings
@@ -54,8 +54,8 @@ def signup(request):
                     new_user = User.objects.get(username=username, email=email)
                     office = Office.objects.get(secret_key=office_key)
                     new_office_worker = OfficeWorkers(
-                            user=new_user, joined_office=office
-                        )
+                        user=new_user, joined_office=office
+                    )
                     new_office_worker.save()
                     return HttpResponseRedirect('/home/login/')
                 else:
@@ -135,11 +135,13 @@ def login_gate(request):
                 login(request, user)
                 if user_settings is not None:
                     return HttpResponseRedirect(
-                        '/'+str(user_office.joined_office.name)+'/dashboard/'
-                        )
+                        '/' + str(user_office.joined_office.name) +
+                        '/dashboard/'
+                    )
                 else:
                     return HttpResponseRedirect(
-                        '/'+str(user_office.joined_office.name)+'/settings/'
+                        '/' + str(user_office.joined_office.name) +
+                        '/settings/'
                     )
             else:
                 invalid_user_credits = True
@@ -168,7 +170,7 @@ def dashboard(request, officename):
     except ObjectDoesNotExist:
         current_user_settings = None
 
-    # Announcament Mechanism
+    # Announcament Create Mechanism
     if request.method == 'POST':
         announcament_form = AnnouncamentForm(request.POST)
         if announcament_form.is_valid():
@@ -180,11 +182,32 @@ def dashboard(request, officename):
             new_announcament.save()
     else:
         announcament_form = AnnouncamentForm()
+
+    # Announcament Delete Mechanism
+    if request.POST.get("announcament_delete_btn"):
+        hidden_id = request.POST.get("hidden_id")
+        announcament = Announcament.objects.filter(pk=hidden_id)
+        announcament.delete()
+    '''
+    if request.method == 'POST':
+        announcament_delete_form = AnnouncamentDeleteForm(request.POST)
+        if announcament_delete_form.is_valid():
+            hidden_id = announcament_delete_form.cleaned_data['hidden']
+            print(hidden_id)
+        else:
+            print('form is not valid')
+    else:
+        announcament_delete_form = AnnouncamentDeleteForm()
+    '''
+
     # Announcament Objects
     try:
         all_announcaments = Announcament.objects.order_by('-publish_date')
+        office_announcaments = Announcament.objects.filter(
+            office=current_office).order_by('-publish_date')
     except ObjectDoesNotExist:
         all_announcaments = None
+        office_announcaments = None
 
     # Desk Objects
     try:
@@ -200,6 +223,7 @@ def dashboard(request, officename):
         'announcament_form': announcament_form,
         'all_announcaments': all_announcaments,
         'current_user_desks': current_user_desks,
+        'office_announcaments': office_announcaments,
     }
     return render(request, 'home_app/dashboard.html', context=data)
 
