@@ -98,6 +98,8 @@ def settings(request, officename):
     # Settings Mechanism
     if request.method == 'POST':
         settings_form = ProfileSettingsForm(request.POST)
+        if settings_form.is_valid():
+            pass
     else:
         settings_form = ProfileSettingsForm()
 
