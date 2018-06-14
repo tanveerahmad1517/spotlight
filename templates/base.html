@@ -59,7 +59,7 @@
           </div>
         </div>
         <a href="{% url 'dashboard' current_office.name %}"><i class="fa fa-bell"></i>Dashboard</a>
-        <a href="{% url 'desk_browse' %}"><i class="fa fa-book"></i> Desk</a>
+        <a href="{% url 'desk_browse' current_office.name %}"><i class="fa fa-book"></i> Desk</a>
         <a href=""><i class="fa fa-user-circle"></i> Profile</a>
         <a href="{% url 'publish' %}"><i class="fa fa-paper-plane"></i> Publish</a>
         <form method="POST" action="{% url 'logout' %}" id="logout_form">

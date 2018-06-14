@@ -11,7 +11,7 @@ urlpatterns = [
     # Dashboard
     path('<str:officename>/home/dashboard/', views.dashboard, name='dashboard'),
     # Desk
-    path('home/desk/', views.desk_browse, name='desk_browse'),
+    path('<str:officename>/home/desk/', views.desk_browse, name='desk_browse'),
     # Search
     path("home/search/", views.search, name="search"),
     # Publish

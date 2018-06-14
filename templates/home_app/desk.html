@@ -15,7 +15,7 @@
   <!-- hidden panel -->
   <div id="hidden_panel">
     <button id="close_panel_button"><i class="fa fa-close"></i></button>
-    <form id="create_desk_form" action="{% url 'desk_browse'%}" method="POST" enctype="multipart/form-data">
+    <form id="create_desk_form" action="{% url 'desk_browse' current_office.name %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <label>Desk Image</label>
       <input type="file" name="desk_create_image" id="desk_create_image" />

@@ -136,12 +136,12 @@ def login_gate(request):
                 if user_settings is not None:
                     return HttpResponseRedirect(
                         '/' + str(user_office.joined_office.name) +
-                        '/dashboard/'
+                        '/home/dashboard/'
                     )
                 else:
                     return HttpResponseRedirect(
                         '/' + str(user_office.joined_office.name) +
-                        '/settings/'
+                        '/profile/settings/'
                     )
             else:
                 invalid_user_credits = True
@@ -228,8 +228,14 @@ def dashboard(request, officename):
 # Desc: This is a page where you can create new desks(departments) for your
 #       newspaper or browse some to join them
 @login_required
-def desk_browse(request):
+def desk_browse(request, officename):
     current_user = get_object_or_404(User, pk=request.user.id)
+    current_office = Office.objects.get(name=officename)
+    # Office Worker objects
+    try:
+        office_worker = OfficeWorkers.objects.get(user=current_user)
+    except ObjectDoesNotExist:
+        office_worker = None
 
     # Settings Objects
     try:
@@ -279,6 +285,8 @@ def desk_browse(request):
 
     data = {
         'current_user': current_user,
+        'current_office': current_office,
+        'office_worker': office_worker,
         'has_home_navbar': True,
         'current_user_settings': current_user_settings,
         'all_desks': all_desks,

@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
-from home_app.models import Office, Announcament
 from django.contrib.auth.models import User
+from home_app.models import Office, Announcament
 
 
 # NORMAL ACCOUNT FORM
