@@ -9,7 +9,7 @@ urlpatterns = [
     # Login Gate
     path('home/login/', views.login_gate, name='login_gate'),
     # Dashboard
-    path('<str:officename>/dashboard/', views.dashboard, name='dashboard'),
+    path('<str:officename>/home/dashboard/', views.dashboard, name='dashboard'),
     # Desk
     path('home/desk/', views.desk_browse, name='desk_browse'),
     # Search

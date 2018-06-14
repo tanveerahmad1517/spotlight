@@ -54,7 +54,7 @@
         <div id="right-part-author-info">
           <img src="{{ current_user_settings.profile_photo.url }}" alt="ss" height="55px" width="55px" />
           <div id="right-part-author-name">
-            <h4> {{ current_user_settings.name }}</h4>
+            <h4> {{ current_user.first_name }} {{ current_user.last_name}}</h4>
             <h5>@{{ current_user.username }}</h5>
           </div>
         </div>
@@ -134,7 +134,7 @@
           {% endif %}
 
           <div id="right-part-author-name">
-            <h4> {{ current_user_settings.name }}</h4>
+            <h4> {{ current_user.first_name }} {{ current_user.last_name}}</h4>
             <h5>@{{ current_user.username }}</h5>
           </div>
         </div>

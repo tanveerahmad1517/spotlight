@@ -21,7 +21,7 @@ def contributions(request, officename):
     # Article objects
     try:
         current_user_articles = Article.objects.filter(author=current_user)\
-                                    .order_by('-publish_date')
+            .order_by('-publish_date')
     except ObjectDoesNotExist:
         current_user_articles = None
 
@@ -95,33 +95,6 @@ def settings(request, officename):
     except ObjectDoesNotExist:
         office_worker = None
 
-    # Settings Mechanism
-    if request.method == 'POST':
-        settings_form = ProfileSettingsForm(request.POST)
-        if settings_form.is_valid():
-            pass
-    else:
-        settings_form = ProfileSettingsForm()
-
-    # Settings Mechanism
-    if request.POST.get('settings_submit_button'):
-        profile_photo = request.FILES.get('profile_photo')
-        name = request.POST.get('name')
-        bio = request.POST.get('bio')
-        personal_link = request.POST.get('personal_link')
-        try:
-            update_settings = ProfileSettings.objects.get(user=current_user)
-            update_settings.profile_photo = profile_photo
-            update_settings.name = name
-            update_settings.bio = bio
-            update_settings.personal_link = personal_link
-            update_settings.save()
-        except ObjectDoesNotExist:
-            new_settings = ProfileSettings(user=current_user, bio=bio, name=name,
-                                           profile_photo=profile_photo,
-                                           personal_link=personal_link,)
-            new_settings.save()
-
     # Settings Objects
     try:
         current_user_settings = ProfileSettings.objects.get(user=current_user)
@@ -133,6 +106,36 @@ def settings(request, officename):
         current_user_desks = DeskWorkers.objects.filter(worker=current_user)
     except ObjectDoesNotExist:
         current_user_desks = None
+
+    # Settings Mechanism
+    if request.method == 'POST':
+        settings_form = ProfileSettingsForm(request.POST, request.FILES)
+        if settings_form.is_valid():
+            profile_photo = settings_form.cleaned_data['profile_photo']
+            bio = settings_form.cleaned_data['bio']
+            personal_link = settings_form.cleaned_data['personal_link']
+            try:
+                # Update settings if there is a settings already
+                update_settings = ProfileSettings.objects.get(
+                    user=current_user
+                )
+                update_settings.profile_photo = profile_photo
+                update_settings.bio = bio
+                update_settings.personal_link = personal_link
+                update_settings.save()
+            except ObjectDoesNotExist:
+                new_settings = ProfileSettings(
+                    user=current_user, bio=bio, profile_photo=profile_photo,
+                    personal_link=personal_link,
+                )
+                new_settings.save()
+            return HttpResponseRedirect(
+                '/' + str(current_office.name) + '/home/dashboard/'
+            )
+        else:
+            print('form is not valid')
+    else:
+        settings_form = ProfileSettingsForm()
 
     data = {
         'current_user': current_user,
