@@ -12,6 +12,7 @@
 
   <!-- create a desk button -->
   <button id="create_desk"><i class="fa fa-plus"></i></button>
+
   <!-- hidden panel -->
   <div id="hidden_panel">
     <button id="close_panel_button"><i class="fa fa-close"></i></button>
@@ -71,7 +72,7 @@
         <!-- MAX 236 CHARS -->
         <p>{{ desk.description }}</p>
       </div>
-      <form action="{% url 'desk_browse' %}" method="POST">
+      <form action="{% url 'desk_browse' current_office.name %}" method="POST">
         {% csrf_token %}
         <input name="hidden_value" value="{{ desk.id }}" type="hidden" />
         <input type="submit" value="JOIN" style="background-color: {{ desk.get_category_color_display }}" name="join_desk_button"/>

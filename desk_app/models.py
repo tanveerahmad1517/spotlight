@@ -2,11 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from profile_app.models import ProfileSettings
+from home_app.models import Office
 
 
 # DESK'S
 class Desk(models.Model):
+    office = models.ForeignKey(Office, on_delete=models.CASCADE)
     sub_editor = models.ForeignKey(User, on_delete=models.CASCADE)
+    office = models.ForeignKey(
+        Office, on_delete=models.CASCADE, null=True, blank=True
+    )
     image = models.ImageField(
         upload_to='deks_images/', blank=False, null=False
     )

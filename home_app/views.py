@@ -253,7 +253,7 @@ def desk_browse(request, officename):
         new_desk = Desk(
             sub_editor=current_user, image=desk_create_image,
             category=desk_create_category, name=desk_creat_name,
-            description=desk_create_desc,
+            description=desk_create_desc, office=current_office,
             category_color=desk_create_category_color,
         )
         new_desk.save()
@@ -292,7 +292,7 @@ def desk_browse(request, officename):
         'all_desks': all_desks,
         'current_user_desks': current_user_desks,
     }
-    return render(request, 'home_app/desk.html', context=data)
+    return render(request, 'home_app/desk_browse.html', context=data)
 
 
 # SEARCH
