@@ -90,47 +90,103 @@
   transition: 0.5s;
 }
 
-#desk-box-cell {
-  margin-top: 25px;
-  height: auto;
-  width: 95%;
-  background-color: white;
-  padding: 3px;
-  border-radius: 3px;
-}
-#desk-box-cell img {
-  border-radius: 4px !important;
-}
+/*
+
 #content{
   display: inline-block;
   padding: 2px !important;
   background-color: transparent;
   width: 550px;
-  position: absolute;
   height: auto;
   margin-top: 2px;
   margin-left: 10px;
+  vertical-align: top !important;
 }
 #content h4 {
   margin: 0px !important;
   margin-bottom: 4px !important;
+  vertical-align: top !important;
 }
 #content p {
   margin: 0px !important;
+  vertical-align: top !important;
 }
 #desk-box-cell form {
   display: inline;
-  position: relative;
   margin-left: 600px;
+  vertical-align: top !important;
 }
 #desk-box-cell form input {
   padding: 10px;
   border: 2px solid transparent;
   color: white;
   border-radius: 2px;
+  vertical-align: top !important;
 }
 #desk-box-cell form input:hover {
   color: black;
   background-color: #e8e9ea !important;
   transition: 0.5s;
+}
+*/
+
+#desk-box-cell {
+  margin-top: 25px;
+  width: 100%;
+  height: auto !important;
+  background-color: white;
+  padding: 3px;
+  border-radius: 3px;
+}
+#desk-box-cell img {
+  border-radius: 4px;
+  display: inline !important;
+  vertical-align: top !important;
+}
+#content {
+  display: inline-block !important;
+  padding: 2px;
+  height: auto;
+  background-color: transparent;
+  width: 600px;
+  margin-top: 2px;
+  margin-left: 10px;
+  vertical-align: top !important;
+}
+#content h4 {
+  margin-top: 0px !important;
+}
+#content p {
+  margin: 0px;
+}
+#desk-box-cell form {
+  display: inline-block;
+  vertical-align: top !important;
+}
+#desk-box-cell form input {
+  padding: 10px;
+  border: 2px solid transparent;
+  color: white;
+  border-radius: 2px;
+  margin-top: 25px;
+}
+
+#desk-box-cell form input:hover {
+  color: black;
+  background-color: #e8e9ea !important;
+  transition: 0.5s;
+}
+
+#invalid_desk_credits {
+  color: #E74C3C;
+  border: 2px solid #E74C3C;
+  border-radius: 2px;
+  width: 700px;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  padding: 10px;
+  padding-top: 0px !important;
+}
+#invalid_desk_credits h2 {
+  color: #E74C3C;
 }

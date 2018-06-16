@@ -2,13 +2,25 @@
 {% load staticfiles %}
 
 {% block css_link %}
-<link rel="stylesheet" href="{% static 'home_app/css/desk.css' %}" />
+<link rel="stylesheet" href="{% static 'home_app/css/desk_browse.css' %}" />
 {% endblock %}
 
 {% block content %}
 <div id="wrapper">
   <h3 id="header">Desk</h3>
   <br />
+
+  {% if wrong_form_input == True%}
+  <div id="invalid_desk_credits">
+    <h2>You must upload a picture of the desk!</h2>
+  </div>
+  {% endif %}
+
+  {% if invalid_desk_credits == True %}
+  <div id="invalid_desk_credits">
+    <h2>The desk name you have entered already exists!</h2>
+  </div>
+  {% endif %}
 
   <!-- create a desk button -->
   <button id="create_desk"><i class="fa fa-plus"></i></button>
@@ -66,7 +78,11 @@
     {% for desk in all_desks %}
     <!-- CELL -->
     <div id="desk-box-cell" style="border: 2px solid {{ desk.get_category_color_display }};">
-      <img src="{{ desk.image.url }}" alt="desk_image" height="90" width="90" />
+      {% if desk.image %}
+        <img src="{{ desk.image.url }}" alt="desk_image" height="90" width="90" />
+      {% else %}
+        <img src="" alt="desk_image" height="90px" width="90px" style="background-color:#5D6D7E;" />
+      {% endif %}
       <div id="content">
         <h4>{{ desk.name }}</h4>
         <!-- MAX 236 CHARS -->
@@ -80,6 +96,7 @@
     </div><!-- /cell -->
     {% endfor %}
   </div><!-- /desk-boxes -->
+  <br />
 
 </div>
 {% endblock %}

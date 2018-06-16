@@ -223,7 +223,7 @@ def dashboard(request, officename):
     return render(request, 'home_app/dashboard.html', context=data)
 
 
-# DESK
+# DESK BROWSE
 # ---------------------
 # Desc: This is a page where you can create new desks(departments) for your
 #       newspaper or browse some to join them
@@ -236,6 +236,8 @@ def desk_browse(request, officename):
         office_worker = OfficeWorkers.objects.get(user=current_user)
     except ObjectDoesNotExist:
         office_worker = None
+    invalid_desk_credits = False
+    wrong_form_input = False
 
     # Settings Objects
     try:
@@ -248,15 +250,23 @@ def desk_browse(request, officename):
         desk_create_image = request.FILES.get('desk_create_image')
         desk_create_category = request.POST.get('desk_create_category')
         desk_create_category_color = request.POST.get('desk_create_category')
-        desk_creat_name = request.POST.get('desk_create_name')
+        desk_create_name = request.POST.get('desk_create_name')
         desk_create_desc = request.POST.get('desk_create_desc')
-        new_desk = Desk(
-            sub_editor=current_user, image=desk_create_image,
-            category=desk_create_category, name=desk_creat_name,
-            description=desk_create_desc, office=current_office,
-            category_color=desk_create_category_color,
-        )
-        new_desk.save()
+        if Desk.objects.filter(name=desk_create_name, office=current_office,
+                               category=desk_create_category).exists():
+            # Do nothing
+            invalid_desk_credits = True
+        elif desk_create_image is None:
+            # Do nothing
+            wrong_form_input = True
+        else:
+            new_desk = Desk(
+                sub_editor=current_user, image=desk_create_image,
+                category=desk_create_category, name=desk_create_name,
+                description=desk_create_desc, office=current_office,
+                category_color=desk_create_category_color,
+            )
+            new_desk.save()
 
     # Joining a desk mechanism
     if request.POST.get('join_desk_button'):
@@ -287,6 +297,8 @@ def desk_browse(request, officename):
         'current_user': current_user,
         'current_office': current_office,
         'office_worker': office_worker,
+        'invalid_desk_credits': invalid_desk_credits,
+        'wrong_form_input': wrong_form_input,
         'has_home_navbar': True,
         'current_user_settings': current_user_settings,
         'all_desks': all_desks,
