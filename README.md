@@ -1,5 +1,3 @@
-> This project is no longer in development or maintained
-
 # Spotlight
 
 This is a custom tool specially built for content creators with busy deadlines. It's meant to be used for easing your workload and eliminating the dozens of 'post-it's you stick while working on a project.

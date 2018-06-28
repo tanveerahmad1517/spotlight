@@ -38,7 +38,7 @@
     {% if has_home_navbar == True %}
       <!-- navbar left-part -->
       <div id="home-navbar-left-part">
-        <a href="{% url 'dashboard' current_office.name %}"><img src="{% static 'assets/white-logo.png' %}" alt="logo"/></a>
+        <a href="{% url 'dashboard' current_office.name %}"><img src="{% static 'assets/vilo-logo.png' %}" alt="logo" height="40px"/></a>
         <a id="home-search-link" href="{% url 'search' %}"><p class="text-center"><i class="fa fa-search"></i></p></a>
         <!-- MAX : 9 -->
         <div id="home-desk-links">
@@ -46,26 +46,21 @@
             <a href="{% url 'to_do' deskname=desk.joined_desk.name %}" id="desk-link"><p><i class="{{ desk.joined_desk.get_category_display }}"></i> <span>{{ desk.joined_desk.name }}</span></p></a>
           {% endfor %}
         </div>
+        <form method="POST" action="{% url 'logout' %}" id="logout_form">
+          {% csrf_token %}
+          <button type="submit"><i class="fa fa-sign-out"></i></button>
+        </form>
         <a id="home-help-link" href="" class="text-center"><p class="text-center">?</p></a>
       </div><!-- /navbar left part -->
 
       <!-- div navbar right part -->
       <div id="home-navbar-right-part">
-        <div id="right-part-author-info">
-          <img src="{{ current_user_settings.profile_photo.url }}" alt="ss" height="55px" width="55px" />
-          <div id="right-part-author-name">
-            <h4> {{ current_user.first_name }} {{ current_user.last_name}}</h4>
-            <h5>@{{ current_user.username }}</h5>
-          </div>
-        </div>
+        <h2>{{ current_office.name }}</h2>
         <a href="{% url 'dashboard' current_office.name %}"><i class="fa fa-bell"></i>Dashboard</a>
         <a href="{% url 'desk_browse' current_office.name %}"><i class="fa fa-book"></i> Desk</a>
         <a href=""><i class="fa fa-user-circle"></i> Profile</a>
         <a href="{% url 'publish' %}"><i class="fa fa-paper-plane"></i> Publish</a>
-        <form method="POST" action="{% url 'logout' %}" id="logout_form">
-          {% csrf_token %}
-          <input type="submit" value="Log Out" />
-        </form>
+
       </div><!-- navbar right part -->
     {% endif %}
 

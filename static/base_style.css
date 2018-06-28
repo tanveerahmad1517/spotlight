@@ -1,6 +1,7 @@
 /*
 color palette
 -------------
+white: #F7F7F7
 black : #181712
 dark grey : #e0e1e2
 light grey : #e8e9ea
@@ -49,9 +50,9 @@ html body {
   display: inline;
   position: fixed;
   z-index: 1 !important;
+  padding-top: 7px;
 }
 #home-navbar-left-part img {
-  height: 45px;
   margin-left: 15px;
   margin-top: 20px;
   display: block;
@@ -114,12 +115,18 @@ html body {
 
 #home-navbar-right-part {
   height: 100vh;
-  width: 300px;
-  background-color: #F2F3F4;
+  width: 240px;
+  background-color: #2ECC71;
   display:inline-block;
   margin-left: 75px;
   padding: 15px;
   position: fixed;
+  padding-top: 10px;
+}
+#home-navbar-right-part h2 {
+  color: #F7F7F7;
+  margin-bottom: 10px;
+  margin-left: 5px;
 }
 
 #right-part-author-info {
@@ -151,26 +158,26 @@ html body {
   margin-bottom: 5px;
   padding: 10px;
   border-radius: 5px;
-  color: #39443b;
+  color: #F7F7F7;
 }
 #home-navbar-right-part a i {
   margin-right: 10px;
 }
 #home-navbar-right-part a:hover {
-  background-color: #e0e1e2;
+  background-color: #F7F7F7;
   transition: 0.5s;
   color: #0fc625;
   text-decoration: none;
 }
 
-#logout_form input {
-  border-radius: 10px;
+#logout_form button {
   background-color: #2ECC71;
   border: 2px solid #2ECC71;
   color: white;
-  bottom: 0;
   position: absolute;
-  margin-bottom: 20px;
+  margin-top: -10px !important;
+  margin-left: 20px;
+  font-size: 20px !important;
   padding: 4px 10px;
 }
 #logout_form input:hover {
